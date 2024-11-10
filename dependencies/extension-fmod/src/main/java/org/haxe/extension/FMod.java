@@ -52,7 +52,7 @@ public class FMod extends Extension {
 
     static {
         Log.d(LOG_TAG, "Loading FMod libs from Java...");
-        System.loadLibrary('fmod');
+        System.loadLibrary("fmod");
         Log.d(LOG_TAG, "Finished loading FMod libs from Java!");
     }
 }

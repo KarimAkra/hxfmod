@@ -4,9 +4,7 @@ import lime.app.Application;
 import openfl.utils.Assets;
 import openfl.display.Sprite;
 import openfl.display.Bitmap;
-
 import sys.FileSystem;
-
 import hxfmod.Sound;
 import hxfmod.Channel;
 import hxfmod.System;
@@ -23,12 +21,29 @@ class Main extends Sprite
 
 	var audioFile:String = 'assets/sound.ogg';
 
+	public function new()
+	{
+		#if mobile
+		Sys.setCwd(lime.system.System.applicationStorageDirectory);
+		#end
+
+		super();
+
+		Application.current.preloader.onComplete.add(create);
+
+		Application.current.onUpdate.add(onUpdate);
+	}
+
 	public function create():Void
 	{
-		// For mobile
-		if (!FileSystem.exists(audioFile))
-			sys.io.File.saveBytes(audioFile, Assets.getBytes(audioFile));
-		
+		#if mobile
+		if (!FileSystem.exists(Sys.getCwd() + audioFile))
+		{
+			FileSystem.createDirectory(Sys.getCwd() + 'assets');
+			sys.io.File.saveBytes(Sys.getCwd() + audioFile, Assets.getBytes(audioFile));
+		}
+		#end
+
 		system = new System();
 		system.init(32, INIT_NORMAL);
 		trace('FMod System Version: ' + system.version);
@@ -47,18 +62,5 @@ class Main extends Sprite
 	{
 		if (system != null)
 			system.update();
-	}
-
-	public function new()
-	{
-		super();
-
-		#if mobile
-		Sys.setCwd(lime.system.System.applicationStorageDirectory);
-		#end
-
-		Application.current.preloader.onComplete.add(create);
-
-		Application.current.onUpdate.add(onUpdate);
 	}
 }

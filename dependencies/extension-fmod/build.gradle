@@ -7,27 +7,19 @@ android {
     android.buildFeatures.buildConfig true
 }
 
-task resolveFmodPath {
-    doLast { 
-        def command = ["haxelib", "libpath", "hxfmod"]
-        def output = new ByteArrayOutputStream()
+def getCwdPath() {
+    def command = ["haxelib", "libpath", "hxfmod"]
+    def output = new ByteArrayOutputStream()
 
-        exec {
-            commandLine command
-            standardOutput = output
-        }
-
-        def fmodApiRoot = output.toString().split("\n")[0]
-        def fmodJarPath = "$fmodApiRoot/project/fmod/lib/Android/fmod.jar"
-
-        dependencies {
-            implementation files(fmodJarPath)
-        }
+    exec {
+        commandLine command
+        standardOutput = output
     }
-}
 
-preBuild.dependsOn resolveFmodPath
+    output.toString().trim().split("\n")[0]
+}
 
 dependencies {
     implementation project(':deps:extension-api')
+    implementation files(getCwdPath() + '/project/fmod/lib/Android/fmod.jar')
 }
