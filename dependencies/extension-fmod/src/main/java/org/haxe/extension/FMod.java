@@ -30,38 +30,33 @@ import org.haxe.extension.Extension;
 	function for performing a single task, like returning a value
 	back to Haxe from Java.
 */
-public class FMod extends Extension
-{
+public class FMod extends Extension {
 
-	public static final String LOG_TAG = "FMod Java";
+    public static final String LOG_TAG = "FMod Java";
 
-	@Override
-	public void onCreate (Bundle savedInstanceState)
-	{	
-		Log.d(LOG_TAG, "Initializing FMod from Java...");
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        Log.d(LOG_TAG, "Initializing FMod from Java...");
         org.fmod.FMOD.init(mainActivity);
-		Log.d(LOG_TAG, "Initialized FMod from Java!");
-		super.onCreate(savedInstanceState);
-	}
+        Log.d(LOG_TAG, "Initialized FMod from Java!");
+        super.onCreate(savedInstanceState);
+    }
 
-	@Override
-	public void onDestroy ()
-	{
-		Log.d(LOG_TAG, "Closing FMod from Java...");
+    @Override
+    public void onDestroy() {
+        Log.d(LOG_TAG, "Closing FMod from Java...");
         org.fmod.FMOD.close();
-		Log.d(LOG_TAG, "Closed FMod from Java!");
-		super.onDestroy();
-	}
+        Log.d(LOG_TAG, "Closed FMod from Java!");
+        super.onDestroy();
+    }
 
-	static
-    {
-		Log.d(LOG_TAG, "Loading FMod Libs from Java...");
-        for (String lib: org.haxe.extension.fmod.BuildConfig.FMOD_LIBS)
-        {
-			Log.d(LOG_TAG, "Loading " + lib + "...");
+    static {
+        Log.d(LOG_TAG, "Loading FMod libs from Java...");
+        for (String lib: org.haxe.extension.fmod.BuildConfig.FMOD_LIBS) {
+            Log.d(LOG_TAG, "Loading " + lib + "...");
             System.loadLibrary(lib);
-			Log.d(LOG_TAG, "Loaded " + lib + "!");
+            Log.d(LOG_TAG, "Loaded " + lib + "!");
         }
-		Log.d(LOG_TAG, "Fnished loading FMod libs from Java!");
-    } 
+        Log.d(LOG_TAG, "Finished loading FMod libs from Java!");
+    }
 }

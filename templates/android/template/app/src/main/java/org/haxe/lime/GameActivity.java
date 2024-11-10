@@ -171,12 +171,6 @@ public class GameActivity extends SDLActivity {
 		Extension.mainView = mLayout;
 		Extension.packageName = getApplicationContext ().getPackageName ();
 
-		// for (Extension extension : extensions) {
-
-		// 	extension.onCreate (state);
-
-		// }
-
 		for (int i = 0; i < extensions.size(); i++) {
 			if (calledExtensions.get(i) == false)
 			{
