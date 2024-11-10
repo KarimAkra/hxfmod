@@ -1,10 +1,10 @@
 {
     "dependencies": [
         {
-			"name": "hxcpp",
-			"type": "git",
-			"ref": "v4.3.68",
-			"url": "https://github.com/HaxeFoundation/hxcpp"
+            "name": "hxcpp",
+            "type": "git",
+            "ref": "v4.3.68",
+            "url": "https://github.com/HaxeFoundation/hxcpp"
         },
         {
             "name": "lime",
