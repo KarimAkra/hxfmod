@@ -1,0 +1,53 @@
+name: Main
+
+on: workflow_dispatch
+
+jobs:
+  play_sound:
+    name: ${{ matrix.name }}
+    strategy:
+      matrix:
+        include:
+          - name: Windows
+            os: windows-2022
+            buildArgs: windows
+            artifactName: windowsBuild
+            artifactPath: export\release\windows\bin\*
+            projectName: play_sound
+          - name: Linux
+            os: ubuntu-22.04
+            buildArgs: linux
+            artifactName: linuxBuild
+            artifactPath: export/release/linux/bin/*
+            projectName: play_sound
+          - name: macOS x86_64
+            os: macos-14
+            buildArgs: "mac -64 -D HXCPP_M64"
+            artifactName: macOSBuild-x86_64
+            artifactPath: export/release/macos/bin/*
+            projectName: play_sound
+          - name: macOS AArch64
+            os: macos-15
+            buildArgs: mac
+            artifactName: macOSBuild-arm64
+            artifactPath: export/release/macos/bin/*
+            projectName: play_sound
+          - name: Android
+            os: macos-14
+            buildArgs: "android -ONLY_ARMV7"
+            artifactName: androidBuild
+            artifactPath: "export/release/android/bin/app/build/outputs/apk/debug/*.apk"
+            projectName: play_sound
+          - name: iOS
+            os: macos-15
+            buildArgs: "ios -nosign"
+            artifactName: iOSBuild
+            artifactPath: "export/release/ios/build/Release-iphoneos/*.ipa"
+            projectName: play_sound
+    uses: ./.github/workflows/build.yml
+    with:
+        name: ${{ matrix.name }}
+        os: ${{ matrix.os }}
+        buildArgs: ${{ matrix.buildArgs }}
+        artifactName: ${{ matrix.artifactName }}
+        artifactPath: ${{ matrix.artifactPath }}
