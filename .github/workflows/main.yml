@@ -34,7 +34,7 @@ jobs:
             projectName: play_sound
           - name: Android
             os: macos-14
-            buildArgs: "android -ONLY_ARMV7"
+            buildArgs: android
             artifactName: androidBuild
             artifactPath: "export/release/android/bin/app/build/outputs/apk/debug/*.apk"
             projectName: play_sound
