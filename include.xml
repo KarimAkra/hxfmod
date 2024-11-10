@@ -28,4 +28,5 @@
 	</section>
 
 	<source path="source" />
+	<sample path="samples" />
 </extension>
