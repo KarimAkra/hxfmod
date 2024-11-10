@@ -22,8 +22,6 @@ blah blah add smth here later
 
 **hxfmod** is made available under the **[MIT License](./LICENSE)**.
 
-<a style="float: right;">
-    <img src="./assets/fmod.png" width="300px" align="right" />
-</a>    
+<img src="./assets/fmod.png" width="300px" align="right" />
 
 **FMod** is licensed under a **[proprietary license](https://www.fmod.com/legal)** by **Firelight Technologies Pty Ltd**.
