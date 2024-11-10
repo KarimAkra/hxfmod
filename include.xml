@@ -2,30 +2,9 @@
 <extension xmlns="http://lime.openfl.org/project/1.0.4"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://lime.openfl.org/project/1.0.4 http://lime.openfl.org/xsd/project-1.0.4.xsd">
 
-	<section if="windows">
-		<section if="HXCPP_M64">
-			<assets path="${haxelib:hxfmod}/project/fmod/Windows/core/lib/x64/" rename="" exclude="*.lib" />
-			<dependency path="${haxelib:hxfmod}/project/fmod/Windows/core/lib/x64/fmod.dll" />
-			<!-- <ndll name="fmod" dir="${haxelib:hxfmod}/project/fmod/Windows/core/lib/x64/fmod.dll" /> -->
-		</section>
-
-		<section if="HXCPP_M32">
-			<assets path="${haxelib:hxfmod}/project/fmod/Windows/core/lib/x86" rename="" exclude="*.lib" />
-			<dependency path="${haxelib:hxfmod}/project/fmod/Windows/core/lib/x86/fmod.dll" />
-			<!-- <ndll name="fmod" dir="${haxelib:hxfmod}/project/fmod/Windows/core/lib/x86/fmod.dll" /> -->
-		</section>
-
-		<section if="HXCPP_ARM64">
-			<assets path="${haxelib:hxfmod}/project/fmod/Windows/core/lib/arm64" rename="" exclude="*.lib" />
-			<dependency path="${haxelib:hxfmod}/project/fmod/Windows/core/lib/arm64/fmod.dll" />
-			<!-- <ndll name="fmod" dir="${haxelib:hxfmod}/project/fmod/Windows/core/lib/arm64/fmod.dll" /> -->
-		</section>
-	</section>
-
 	<section if="android">
 		<template path="templates" />
-		<!-- <ndll name="fmod" dir="${haxelib:hxfmod}/project/fmod/Android/core/lib" /> -->
-		<dependency name="fmod-android" path="project/fmod-android" />
+		<dependency name="extension-fmod" path="dependencies/extension-fmod" />
 		<config:android extension="org.haxe.extension.FMod" />
 	</section>
 

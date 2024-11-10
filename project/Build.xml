@@ -3,22 +3,70 @@
 	<pragma once="true" />
 
 	<files id="haxe">
-		<compilerflag value="-I${haxelib:hxfmod}/project/fmod/Windows/core/inc" if="windows"/>
-		<compilerflag value="-I${haxelib:hxfmod}/project/fmod/Android/core/inc" if="android"/>
+		<compilerflag value="-I${haxelib:hxfmod}/project/fmod/include/Windows/" if="windows"/>
+		<compilerflag value="-I${haxelib:hxfmod}/project/fmod/include/WinRT/" if="winrt"/>
+		<compilerflag value="-I${haxelib:hxfmod}/project/fmod/include/MacOS/" if="mac"/>
+		<compilerflag value="-I${haxelib:hxfmod}/project/fmod/include/Android/" if="android"/>
+		<compilerflag value="-I${haxelib:hxfmod}/project/fmod/include/iOS/" if="iphoneos || iphonesim"/>
 	</files>
 
 	<files id="__main__">
-		<section unless="linux">
-			<compilerflag value="-I${haxelib:hxfmod}/project/fmod/Windows/core/inc" if="windows"/>
-			<compilerflag value="-I${haxelib:hxfmod}/project/fmod/Android/core/inc" if="android"/>
-		</section>
+		<compilerflag value="-I${haxelib:hxfmod}/project/fmod/include/Windows/" if="windows"/>
+		<compilerflag value="-I${haxelib:hxfmod}/project/fmod/include/WinRT/" if="winrt"/>
+		<compilerflag value="-I${haxelib:hxfmod}/project/fmod/include/MacOS/" if="mac"/>
+		<compilerflag value="-I${haxelib:hxfmod}/project/fmod/include/Android/" if="android"/>
+		<compilerflag value="-I${haxelib:hxfmod}/project/fmod/include/iOS/" if="iphoneos || iphonesim"/>
 	</files>
 
 	<target id="haxe">
 		<section if="windows">
-			<lib name="${haxelib:hxfmod}/project/fmod/Windows/core/lib/x64/fmod_vc.lib" if="HXCPP_M64" />
-			<lib name="${haxelib:hxfmod}/project/fmod/Windows/core/lib/x86/fmod_vc.lib" if="HXCPP_M32" />
-			<lib name="${haxelib:hxfmod}/project/fmod/Windows/core/lib/arm64/fmod_vc.lib" if="HXCPP_ARM64" />
+			<section if="HXCPP_M64">
+				<lib name="${haxelib:hxfmod}/project/fmod/lib/Windows/x64/fmod_vc.lib" />
+				<lib name="${haxelib:hxfmod}/project/fmod/lib/Windows/x64/fmod.dll" />
+			</section>
+
+			<section if="HXCPP_M32">
+				<lib name="${haxelib:hxfmod}/project/fmod/lib/Windows/x86/fmod_vc.lib" />
+				<lib name="${haxelib:hxfmod}/project/fmod/lib/Windows/x86/fmod.dll" />
+			</section>
+
+			<section if="HXCPP_ARM64">
+				<lib name="${haxelib:hxfmod}/project/fmod/lib/Windows/arm64/fmod_vc.lib" />
+				<lib name="${haxelib:hxfmod}/project/fmod/lib/Windows/arm64/fmod.dll" />
+			</section>
+		</section>
+
+		<section if="winrt">
+			<section if="HXCPP_M64">
+				<lib name="${haxelib:hxfmod}/project/fmod/lib/WinRT/x64/fmod.lib" />
+				<lib name="${haxelib:hxfmod}/project/fmod/lib/WinRT/x64/fmod.dll" />
+			</section>
+
+			<section if="HXCPP_M32">
+				<lib name="${haxelib:hxfmod}/project/fmod/lib/WinRT/x86/fmod.lib" />
+				<lib name="${haxelib:hxfmod}/project/fmod/lib/WinRT/x86/fmod.dll" />
+			</section>
+
+			<section if="HXCPP_ARMV7">
+				<lib name="${haxelib:hxfmod}/project/fmod/lib/WinRT/arm/fmod.lib" />
+				<lib name="${haxelib:hxfmod}/project/fmod/lib/WinRT/arm/fmod.dll" />
+			</section>
+		</section>
+
+		<section if="mac">
+			<lib name="${haxelib:hxfmod}/project/fmod/lib/MacOS/libfmod.dylib" if="HXCPP_ARM64 || HXCPP_M64" />
+		</section>
+
+		<section if="android">
+			<lib name="${haxelib:hxfmod}/project/fmod/lib/Android/x86_64/libfmod.so" if="HXCPP_X86_64" />
+			<lib name="${haxelib:hxfmod}/project/fmod/lib/Android/x86/libfmod.so" if="HXCPP_X86" />
+			<lib name="${haxelib:hxfmod}/project/fmod/lib/Android/arm64-v8a/libfmod.so" if="HXCPP_ARM64" />
+			<lib name="${haxelib:hxfmod}/project/fmod/lib/Android/armeabi-v7a/libfmod.so" if="HXCPP_ARMV7" />
+		</section>
+
+		<section if="iphoneos || iphonesim">
+			<lib name="${haxelib:hxfmod}/project/fmod/lib/iOS/libfmod_iphoneos.a" if="HXCPP_ARM64" />
+			<lib name="${haxelib:hxfmod}/project/fmod/lib/iOS/libfmod_iphonesim.a" if="HXCPP_M64" />
 		</section>
 	</target>
 </xml>
