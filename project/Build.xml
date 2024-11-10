@@ -15,23 +15,10 @@
 	</files>
 
 	<target id="haxe">
-
 		<section if="windows">
-			<section if="HXCPP_M64">
-				<lib name="${haxelib:hxfmod}/project/fmod/lib/Windows/x64/fmod_vc.lib" unless="debug" />
-				<lib name="${haxelib:hxfmod}/project/fmod/lib/Windows/x64/fmodL_vc.lib" if="debug"/>
-			</section>
-
-			<section if="HXCPP_M32">
-				<lib name="${haxelib:hxfmod}/project/fmod/lib/Windows/x86/fmod_vc.lib" unless="debug"/>
-				<lib name="${haxelib:hxfmod}/project/fmod/lib/Windows/x86/fmodL_vc.lib" if="debug" />
-			</section>
-
-			<section if="HXCPP_ARM64">
-				<lib name="${haxelib:hxfmod}/project/fmod/lib/Windows/arm64/fmod_vc.lib" unless="debug" />
-				<lib name="${haxelib:hxfmod}/project/fmod/lib/Windows/arm64/fmodL_vc.lib" if="debug"/>
-			</section>
+			<lib name="${haxelib:hxfmod}/project/fmod/Windows/core/lib/x64/fmod_vc.lib" if="HXCPP_M64" />
+			<lib name="${haxelib:hxfmod}/project/fmod/Windows/core/lib/x86/fmod_vc.lib" if="HXCPP_M32" />
+			<lib name="${haxelib:hxfmod}/project/fmod/Windows/core/lib/arm64/fmod_vc.lib" if="HXCPP_ARM64" />
 		</section>
-	
 	</target>
 </xml>
