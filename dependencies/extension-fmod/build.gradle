@@ -5,12 +5,6 @@ android {
     compileSdkVersion Integer.parseInt(project.ANDROID_BUILD_SDK_VERSION)
     buildToolsVersion project.ANDROID_BUILD_TOOLS_VERSION
     android.buildFeatures.buildConfig true
-
-    /*buildTypes {
-        release {*/
-            buildConfigField("String[]", "FMOD_LIBS", "{ \"fmod\" }")
-        /*}
-    }*/
 }
 
 task resolveFmodPath {
@@ -24,16 +18,16 @@ task resolveFmodPath {
         }
 
         def fmodApiRoot = output.toString().split("\n")[0]
-        println "FMOD API root path: $fmodApiRoot"
+        def fmodJarPath = "$fmodApiRoot/project/fmod/lib/Android/fmod.jar"
 
-        project.ext.fmod_api_root = fmodApiRoot
+        dependencies {
+            implementation files(fmodJarPath)
+        }
     }
 }
 
+preBuild.dependsOn resolveFmodPath
+
 dependencies {
     implementation project(':deps:extension-api')
-
-    afterEvaluate {
-        implementation files("$project.ext.fmod_api_root/project/fmod/lib/Android/fmod.jar")
-    }
 }
