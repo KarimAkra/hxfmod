@@ -15,7 +15,7 @@ android {
 
 task resolveFmodPath {
     doLast { 
-        def command = ["haxelib", "path", "hxfmod"]
+        def command = ["haxelib", "libpath", "hxfmod"]
         def output = new ByteArrayOutputStream()
 
         exec {

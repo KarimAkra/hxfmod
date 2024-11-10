@@ -32,7 +32,7 @@ import org.haxe.extension.Extension;
 */
 public class FMod extends Extension {
 
-    public static final String LOG_TAG = "FMod Java";
+    public static final String LOG_TAG = "FMod";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
