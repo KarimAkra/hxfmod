@@ -43,6 +43,7 @@ jobs:
         run: |
           haxelib install hmm --quiet
           haxelib run hmm install --quiet
+          haxelib run lime rebuild hxcpp
         working-directory: samples/${{ inputs.projectName }}
 
       - name: Configure Android
