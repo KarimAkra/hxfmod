@@ -1,5 +1,6 @@
 #pragma once
 
+#ifdef TARGET_OS_IOS
 /*
 [ENUM]
 [
@@ -20,4 +21,4 @@ typedef enum FMOD_AUDIOQUEUE_CODECPOLICY
     
     FMOD_AUDIOQUEUE_CODECPOLICY_FORCEINT = 65536    /* Makes sure this enum is signed 32bit */
 } FMOD_AUDIOQUEUE_CODECPOLICY;
-
+#endif
