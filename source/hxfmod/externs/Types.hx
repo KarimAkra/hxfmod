@@ -32,7 +32,6 @@ extern class FMod_System
 	function createSound(name_or_data:cpp.ConstCharStar, mode:FMOD_MODE, exinfo:RawPointer<FMOD_CREATESOUNDEXINFO>,
 		sound:RawPointer<RawPointer<FMod_Sound>>):FMOD_RESULT;
 
-	// FMOD_RESULT F_API playSound               (Sound *sound, ChannelGroup *channelgroup, bool paused, Channel **channel);
 	function playSound(sound:RawPointer<FMod_Sound>, ChannelGroup:RawPointer<FMod_ChannelGroup>, paused:Bool,
 		channel:RawPointer<RawPointer<FMod_Channel>>):FMOD_RESULT;
 }
@@ -48,17 +47,25 @@ extern class FMod_Sound
 	private function new();
 
 	function release():FMOD_RESULT;
+
 	function getLength(length:RawPointer<UInt32>, lengthtype:FMOD_TIMEUNIT):FMOD_RESULT;
+
 	function getFormat(type:RawPointer<FMOD_SOUND_TYPE>, format:RawPointer<FMOD_SOUND_FORMAT>, channels:RawPointer<Int>, bits:RawPointer<Int>):FMOD_RESULT;
-	public function getName(name:RawPointer<cpp.Char>, namelen:Int):FMOD_RESULT;
-	public function getDefaults(frequency:RawPointer<cpp.Float32>, volume:RawPointer<cpp.Float32>):FMOD_RESULT;
-	public function setDefaults(frequency:cpp.Float32, volume:cpp.Float32):FMOD_RESULT;
-	public function getNumSubSounds(numsubsounds:RawPointer<Int>):FMOD_RESULT;
-	public function getSubSound(index:Int, subsound:RawPointer<FMod_Sound>):FMOD_RESULT;
-	public function setMode(mode:FMOD_MODE):FMOD_RESULT;
-	public function getMode(mode:RawPointer<FMOD_MODE>):FMOD_RESULT;
-	public function getLoopPoints(loopstart:RawPointer<UInt>, loopstarttype:FMOD_TIMEUNIT, loopend:RawPointer<UInt>, loopendtype:FMOD_TIMEUNIT):FMOD_RESULT;
-	public function setLoopPoints(loopstart:cpp.UInt32, loopstarttype:FMOD_TIMEUNIT, loopend:UInt, loopendtype:FMOD_TIMEUNIT):FMOD_RESULT;
+
+	function getName(name:RawPointer<cpp.Char>, namelen:Int):FMOD_RESULT;
+
+	function getDefaults(frequency:RawPointer<cpp.Float32>, volume:RawPointer<cpp.Float32>):FMOD_RESULT;
+	function setDefaults(frequency:cpp.Float32, volume:cpp.Float32):FMOD_RESULT;
+
+	function getNumSubSounds(numsubsounds:RawPointer<Int>):FMOD_RESULT;
+
+	function getSubSound(index:Int, subsound:RawPointer<FMod_Sound>):FMOD_RESULT;
+
+	function setMode(mode:FMOD_MODE):FMOD_RESULT;
+	function getMode(mode:RawPointer<FMOD_MODE>):FMOD_RESULT;
+	
+	function getLoopPoints(loopstart:RawPointer<cpp.UInt32>, loopstarttype:FMOD_TIMEUNIT, loopend:RawPointer<cpp.UInt32>, loopendtype:FMOD_TIMEUNIT):FMOD_RESULT;
+	function setLoopPoints(loopstart:cpp.UInt32, loopstarttype:FMOD_TIMEUNIT, loopend:cpp.UInt32, loopendtype:FMOD_TIMEUNIT):FMOD_RESULT;
 }
 
 @:buildXml('<include name="${haxelib:hxfmod}/project/Build.xml" />')
@@ -82,6 +89,7 @@ extern class FMod_Channel
 
 	// function setChannelGroup(channelgroup:RawPointer<FMod_ChannelGroup>):FMOD_RESULT;
 	// function getChannelGroup(channelgroup:RawPointer<RawPointer<FMod_ChannelGroup>>):FMOD_RESULT;
+
 	function setLoopCount(loopcount:Int):FMOD_RESULT;
 	function getLoopCount(loopcount:RawPointer<Int>):FMOD_RESULT;
 
@@ -438,7 +446,7 @@ private extern class FMOD_SOUND_TYPE_Impl
 
 @:buildXml('<include name="${haxelib:hxfmod}/project/Build.xml" />')
 @:include('fmod_common.h')
-@:native('FMOD_SOUND_TYPE')
+@:native('FMOD_SOUND_FORMAT')
 private extern class FMOD_SOUND_FORMAT_Impl
 {
 }

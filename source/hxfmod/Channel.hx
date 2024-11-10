@@ -1,9 +1,10 @@
 package hxfmod;
 
-import hxfmod.externs.Types.FMod_Sound;
 import cpp.Pointer;
 import cpp.RawPointer;
+import hxfmod.util.LoopPoints;
 import hxfmod.externs.FMOD_RESULT;
+import hxfmod.externs.Types.FMod_Sound;
 import hxfmod.externs.Types.FMod_Channel;
 import hxfmod.externs.Types.FMOD_TIMEUNIT;
 
@@ -12,9 +13,7 @@ class Channel
 {
 	private var _channel:cpp.RawPointer<FMod_Channel> = untyped NULL;
 
-	public function new()
-	{
-	};
+	public function new() {}
 
 	public function setFrequency(frequency:Float):FMOD_RESULT
 	{
@@ -169,10 +168,4 @@ class Channel
 
 		return index;
 	}
-}
-
-typedef LoopPoints =
-{
-	public var loopstart:Int;
-	public var loopend:Int;
 }

@@ -22,11 +22,11 @@ class System
 
 		if (result == FMOD_OK)
 		{
-			trace('Succesfully created a FMod System instance!');
+			trace('[FMod System] Succesfully created a FMod System instance!');
 		}
 		else
 		{
-			trace('Failed to create FMod System instance with error code ${result.toInt()}');
+			trace('[FMod System] Failed to create FMod System instance with error code ${result.toInt()}');
 		}
 	}
 
@@ -37,17 +37,17 @@ class System
 
 		if (result == FMOD_OK)
 		{
-			trace('Succesfully initialized the FMod System!');
+			trace('[FMod System] Succesfully initialized the FMod System!');
 		}
 		else
 		{
-			trace('Failed to initialize the FMod System with error code ${result.toInt()}');
+			trace('[FMod System] Failed to initialize the FMod System with error code ${result.toInt()}');
 		}
 
 		return result;
 	}
 
-	public function createSound(name_or_data:cpp.ConstCharStar, mode:FMOD_MODE, exinfo:FMOD_CREATESOUNDEXINFO):Sound
+	public function createSound(name_or_data:String, mode:FMOD_MODE, exinfo:FMOD_CREATESOUNDEXINFO):Sound
 	{
 		var sound = new Sound();
 
@@ -59,11 +59,11 @@ class System
 
 		if (result == FMOD_OK)
 		{
-			trace('Created a new FMod Sound Object!');
+			trace('[FMod System] Created a new FMod Sound Object!');
 		}
 		else
 		{
-			trace('Failed to create sound instance with error ${result}');
+			trace('[FMod System] Failed to create sound instance with error ${result}');
 		}
 
 		return sound;
@@ -76,11 +76,11 @@ class System
 
 		if (result == FMOD_OK)
 		{
-			trace('Played a FMod Sound Object!');
+			trace('[FMod System] Played a FMod Sound Object!');
 		}
 		else
 		{
-			trace('Failed to play sound instance with error ${result}');
+			trace('[FMod System] Failed to play sound instance with error ${result}');
 		}
 
 		return result;
