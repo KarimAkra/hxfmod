@@ -2,9 +2,10 @@
 
 # hxfmod
 
-![](https://img.shields.io/github/repo-size/KarimAkra/hxfmod)
-![](https://badgen.net/github/open-issues/KarimAkra/hxfmod)
-![](https://badgen.net/badge/license/MIT/green)
+![Repository Size](https://img.shields.io/github/repo-size/KarimAkra/hxfmod)
+[![Github Issues](https://img.shields.io/github/issues/KarimAkra/hxfmod)](https://github.com/KarimAkra/hxfmod/issues)
+[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/KarimAkra/hxfmod)](https://github.com/KarimAkra/hxfmod/pulls)
+[![License](https://badgen.net/badge/license/MIT/green)](./LICENSE)
 
 ### Supported Platforms
 
