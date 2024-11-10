@@ -18,7 +18,7 @@
         {
             "name": "hxfmod",
             "type": "dev",
-            "path": ".."
+            "path": "../.."
         }
     ]
 }

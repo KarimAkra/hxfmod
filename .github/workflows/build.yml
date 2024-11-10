@@ -39,13 +39,11 @@ jobs:
         with:
           haxe-version: ${{ env.HAXE_VERSION }}
 
-      - name: Set Current Directory to Sample
-        run: echo "cd samples/${{ inputs.projectName }}" >> $GITHUB_ENV
-
       - name: Install Libraries
         run: |
           haxelib install hmm --quiet
           haxelib run hmm install --quiet
+        working-directory: samples/${{ inputs.projectName }}
 
       - name: Configure Android
         if: inputs.name == 'Android'
@@ -54,9 +52,11 @@ jobs:
           haxelib run lime config ANDROID_NDK_ROOT $ANDROID_NDK_LATEST_HOME
           haxelib run lime config JAVA_HOME $JAVA_HOME_17_arm64
           haxelib run lime config ANDROID_SETUP true
+        working-directory: samples/${{ inputs.projectName }}
 
       - name: Compile
         run: haxelib run lime build ${{ inputs.buildArgs }}
+        working-directory: samples/${{ inputs.projectName }}
 
       - name: Make IPA
         if: inputs.name == 'iOS'
@@ -65,10 +65,11 @@ jobs:
           mkdir Payload
           mv *.app Payload
           zip -r ${{ env.PROJECT_NAME }}.ipa Payload
+        working-directory: samples/${{ inputs.projectName }}
 
       - name: Upload Artifact
         uses: actions/upload-artifact@main
         with:
           name: ${{ inputs.artifactName }}
-          path: ${{ inputs.artifactPath }}
+          path: samples/${{ inputs.projectName }}/${{ inputs.artifactPath }}
           if-no-files-found: error

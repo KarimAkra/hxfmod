@@ -53,7 +53,7 @@ class Main extends openfl.display.Sprite
 		sound = system.createSound(Sys.getCwd() + audioFile, FMOD_CREATESAMPLE, new FMOD_CREATESOUNDEXINFO());
 		system.playSound(sound, false, channel);
 
-		var logo = new Bitmap(Assets.getBitmapData('assets/FMOD.png'), true);
+		var logo = new openfl.display.Bitmap(Assets.getBitmapData('assets/FMOD.png'), true);
 		logo.x = (stage.window.width - logo.bitmapData.width) / 2;
 		logo.y = (stage.window.height - logo.bitmapData.height) / 2;
 		addChild(logo);
