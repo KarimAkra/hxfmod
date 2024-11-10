@@ -24,4 +24,7 @@
 		<haxedef name="HXCPP_STACK_TRACE" />
 		<haxedef name="HXCPP_CATCH_SEGV" />
 	</section>
+
+	<icon path="icon.png" />
+	<assets path="icon.png" if="linux" />
 </project>

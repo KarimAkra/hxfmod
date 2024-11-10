@@ -1,19 +1,17 @@
 package;
 
-import lime.app.Application;
-import openfl.utils.Assets;
-import openfl.display.Sprite;
-import openfl.display.Bitmap;
-import sys.FileSystem;
 import hxfmod.Sound;
 import hxfmod.Channel;
 import hxfmod.System;
 import hxfmod.externs.Types;
+import lime.app.Application;
+import openfl.utils.Assets;
+import sys.FileSystem;
 
 /**
  * The entry point of the application.
  */
-class Main extends Sprite
+class Main extends openfl.display.Sprite
 {
 	public var system:System;
 	public var sound:Sound;
@@ -27,10 +25,13 @@ class Main extends Sprite
 		Sys.setCwd(lime.system.System.applicationStorageDirectory);
 		#end
 
+		#if linux
+		openfl.Lib.current.stage.window.setIcon(lime.graphics.Image.fromFile("icon.png"));
+		#end
+
 		super();
 
 		Application.current.preloader.onComplete.add(create);
-
 		Application.current.onUpdate.add(onUpdate);
 	}
 
