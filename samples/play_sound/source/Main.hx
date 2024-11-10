@@ -25,7 +25,7 @@ class Main extends Sprite
 
 	public function create():Void
 	{
-		// For androd
+		// For mobile
 		if (!FileSystem.exists(audioFile))
 			sys.io.File.saveBytes(audioFile, Assets.getBytes(audioFile));
 		
@@ -53,7 +53,7 @@ class Main extends Sprite
 	{
 		super();
 
-		#if android
+		#if mobile
 		Sys.setCwd(lime.system.System.applicationStorageDirectory);
 		#end
 
