@@ -12,48 +12,33 @@
 
 	<target id="haxe">
 		<section if="windows">
-			<section if="HXCPP_M64">
-				<lib name="${haxelib:hxfmod}/project/fmod/lib/Windows/x64/fmod_vc.lib" />
-				<lib name="${haxelib:hxfmod}/project/fmod/lib/Windows/x64/fmod.dll" />
-			</section>
-
-			<section if="HXCPP_M32">
-				<lib name="${haxelib:hxfmod}/project/fmod/lib/Windows/x86/fmod_vc.lib" />
-				<lib name="${haxelib:hxfmod}/project/fmod/lib/Windows/x86/fmod.dll" />
-			</section>
-
-			<section if="HXCPP_ARM64">
-				<lib name="${haxelib:hxfmod}/project/fmod/lib/Windows/arm64/fmod_vc.lib" />
-				<lib name="${haxelib:hxfmod}/project/fmod/lib/Windows/arm64/fmod.dll" />
-			</section>
+			<lib name="${haxelib:hxfmod}/project/fmod/lib/Windows/x64/fmod_vc.lib" if="HXCPP_M64" />
+			<lib name="${haxelib:hxfmod}/project/fmod/lib/Windows/x86/fmod_vc.lib" if="HXCPP_M32" />
+			<lib name="${haxelib:hxfmod}/project/fmod/lib/Windows/arm64/fmod_vc.lib" if="HXCPP_ARM64" />
 		</section>
 
 		<section if="winrt">
-			<section if="HXCPP_M64">
-				<lib name="${haxelib:hxfmod}/project/fmod/lib/WinRT/x64/fmod.lib" />
-				<lib name="${haxelib:hxfmod}/project/fmod/lib/WinRT/x64/fmod.dll" />
-			</section>
-
-			<section if="HXCPP_M32">
-				<lib name="${haxelib:hxfmod}/project/fmod/lib/WinRT/x86/fmod.lib" />
-				<lib name="${haxelib:hxfmod}/project/fmod/lib/WinRT/x86/fmod.dll" />
-			</section>
-
-			<section if="HXCPP_ARMV7">
-				<lib name="${haxelib:hxfmod}/project/fmod/lib/WinRT/arm/fmod.lib" />
-				<lib name="${haxelib:hxfmod}/project/fmod/lib/WinRT/arm/fmod.dll" />
-			</section>
+			<lib name="${haxelib:hxfmod}/project/fmod/lib/WinRT/x64/fmod.lib" if="HXCPP_M64" />
+			<lib name="${haxelib:hxfmod}/project/fmod/lib/WinRT/x86/fmod.lib" if="HXCPP_M32" />
+			<lib name="${haxelib:hxfmod}/project/fmod/lib/WinRT/arm/fmod.lib" if="HXCPP_ARMV7"/>
 		</section>
 
 		<section if="mac">
 			<lib name="${haxelib:hxfmod}/project/fmod/lib/MacOS/libfmod.dylib" if="HXCPP_ARM64 || HXCPP_M64" />
 		</section>
 
+		<section if="linux">
+			<lib name="${haxelib:hxfmod}/project/fmod/lib/Linux/x86_64/libfmod.so.14.4" if="HXCPP_M64" />
+			<lib name="${haxelib:hxfmod}/project/fmod/lib/Linux/x86/libfmod.so.14.4" if="HXCPP_M32" />
+			<lib name="${haxelib:hxfmod}/project/fmod/lib/Linux/arm64/libfmod.so.14.4" if="HXCPP_ARM64" />
+			<lib name="${haxelib:hxfmod}/project/fmod/lib/Linux/arm/libfmod.so.14.4" if="HXCPP_ARMV7" />
+		</section>
+
 		<section if="android">
-			<lib name="${haxelib:hxfmod}/project/fmod/lib/Android/x86_64/libfmod.so" if="HXCPP_X86_64" />
-			<lib name="${haxelib:hxfmod}/project/fmod/lib/Android/x86/libfmod.so" if="HXCPP_X86" />
-			<lib name="${haxelib:hxfmod}/project/fmod/lib/Android/arm64-v8a/libfmod.so" if="HXCPP_ARM64" />
 			<lib name="${haxelib:hxfmod}/project/fmod/lib/Android/armeabi-v7a/libfmod.so" if="HXCPP_ARMV7" />
+			<lib name="${haxelib:hxfmod}/project/fmod/lib/Android/arm64-v8a/libfmod.so" if="HXCPP_ARM64" />
+			<lib name="${haxelib:hxfmod}/project/fmod/lib/Android/x86/libfmod.so" if="HXCPP_X86" />
+			<lib name="${haxelib:hxfmod}/project/fmod/lib/Android/x86_64/libfmod.so" if="HXCPP_X86_64" />
 		</section>
 
 		<section if="iphoneos || iphonesim">

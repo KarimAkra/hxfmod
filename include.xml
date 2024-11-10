@@ -2,6 +2,25 @@
 <extension xmlns="http://lime.openfl.org/project/1.0.4"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://lime.openfl.org/project/1.0.4 http://lime.openfl.org/xsd/project-1.0.4.xsd">
 
+	<section if="windows">
+		<assets path="${haxelib:hxfmod}/project/fmod/lib/Windows/x64" exclude="*.lib" rename="" if="HXCPP_M64" />
+		<assets path="${haxelib:hxfmod}/project/fmod/lib/Windows/x86" exclude="*.lib" rename="" if="HXCPP_M32" />
+		<assets path="${haxelib:hxfmod}/project/fmod/lib/Windows/arm64" exclude="*.lib" rename="" if="HXCPP_ARM64" />
+	</section>
+
+	<section if="winrt">
+		<assets path="${haxelib:hxfmod}/project/fmod/lib/WinRT/x64" exclude="*.lib" rename="" if="HXCPP_M64" />
+		<assets path="${haxelib:hxfmod}/project/fmod/lib/WinRT/x86" exclude="*.lib" rename="" if="HXCPP_M32" />
+		<assets path="${haxelib:hxfmod}/project/fmod/lib/WinRT/arm" exclude="*.lib" rename="" if="HXCPP_ARMV7" />
+	</section>
+
+	<section if="linux">
+		<assets path="${haxelib:hxfmod}/project/fmod/lib/Linux/x86_64" rename="" if="HXCPP_M64" />
+		<assets path="${haxelib:hxfmod}/project/fmod/lib/Linux/x86" rename="" if="HXCPP_M32" />
+		<assets path="${haxelib:hxfmod}/project/fmod/lib/Linux/arm64" rename="" if="HXCPP_ARM64" />
+		<assets path="${haxelib:hxfmod}/project/fmod/lib/Linux/arm" rename="" if="HXCPP_ARMV7" />
+	</section>
+
 	<section if="android">
 		<template path="templates" />
 		<dependency name="extension-fmod" path="dependencies/extension-fmod" />
