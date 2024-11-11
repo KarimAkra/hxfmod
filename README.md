@@ -15,14 +15,15 @@
 - ![Android](https://img.shields.io/badge/-Android-3DDC84?logo=android&logoColor=white&style=flat)
 - ![iOS](https://img.shields.io/badge/iOS-000000?&logo=apple&logoColor=white)
 
-Haxe/hxcpp @:native audio playback using [FMod](https://fmod.com).
+hxcpp and Lime @:native audio playback using [FMod](https://fmod.com).
 
 blah blah add smth here later
 
 ### Licensing
 
-**hxfmod** is made available under the **[MIT License](./LICENSE)**.
+**hxfmod** is available under the **[MIT License](./LICENSE)**.
 
 <img src="./assets/fmod.png" width="300px" align="right" />
 
+Made using FMOD Studio by Firelight Technologies Pty Ltd.
 **FMod** is licensed under a **[proprietary license](https://www.fmod.com/legal)** by **Firelight Technologies Pty Ltd**.
