@@ -1,5 +1,12 @@
 package;
 
+import openfl.utils.Assets;
+import openfl.display.Sprite;
+import openfl.display.Bitmap;
+import lime.app.Application;
+import sys.FileSystem;
+import sys.io.File;
+import haxe.io.Path;
 import hxfmod.Sound;
 import hxfmod.Channel;
 import hxfmod.System;
@@ -11,36 +18,28 @@ import sys.FileSystem;
 /**
  * The entry point of the application.
  */
-class Main extends openfl.display.Sprite
+class Main extends Sprite
 {
 	public var system:System;
 	public var sound:Sound;
 	public var channel:Channel;
 
-	var audioFile:String = 'assets/sound.ogg';
+	var audioFile:String = 'assets/Anamanaguchi.mp3';
 
 	public function new()
 	{
-		#if mobile
-		Sys.setCwd(lime.system.System.applicationStorageDirectory);
-		#end
+		super();
 
 		#if linux
 		openfl.Lib.current.stage.window.setIcon(lime.graphics.Image.fromFile("icon.png"));
 		#end
 
-		super();
-
-		Application.current.preloader.onComplete.add(create);
-		Application.current.onUpdate.add(onUpdate);
-	}
-
-	public function create():Void
-	{
 		#if mobile
+		Sys.setCwd(lime.system.System.applicationStorageDirectory);
+
 		if (!FileSystem.exists(Sys.getCwd() + audioFile))
 		{
-			FileSystem.createDirectory(Sys.getCwd() + 'assets');
+			FileSystem.createDirectory(Sys.getCwd() + Path.directory(audioFile));
 			sys.io.File.saveBytes(Sys.getCwd() + audioFile, Assets.getBytes(audioFile));
 		}
 		#end
@@ -53,10 +52,14 @@ class Main extends openfl.display.Sprite
 		sound = system.createSound(Sys.getCwd() + audioFile, FMOD_CREATESAMPLE, new FMOD_CREATESOUNDEXINFO());
 		system.playSound(sound, false, channel);
 
-		var logo = new openfl.display.Bitmap(Assets.getBitmapData('assets/FMOD.png'), true);
-		logo.x = (stage.window.width - logo.bitmapData.width) / 2;
+		var logo = new Bitmap(Assets.getBitmapData('assets/FMOD.png'), true);
+		var scale = Math.max(logo.bitmapData.width / stage.window.width, logo.bitmapData.height / stage.window.height);
+		logo.scaleX = logo.scaleY = scale;
+		logo.x = ((stage.window.width - logo.bitmapData.width) / 2) * 2;
 		logo.y = (stage.window.height - logo.bitmapData.height) / 2;
 		addChild(logo);
+
+		Application.current.onUpdate.add(onUpdate);
 	}
 
 	public function onUpdate(elapsed:Int)

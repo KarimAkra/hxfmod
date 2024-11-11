@@ -2,6 +2,7 @@
 docs/doc.xml
 pages
 
-# Samples
-samples/*/.haxelib
-samples/*/export
+# Project & Samples
+.haxelib/
+export/
+dependencies/extension-fmod/.gradle/

@@ -3,7 +3,7 @@
 	<!-- Sample Application Settings -->
 	<meta title="HXFmod Play Sound Sample" packageName="com.hxfmod.play_sound" package="com.hxfmod.play_sound" version="0.0.1" company="KarimAkra" />
 	<app file="HXFmod" main="Main"/>
-	<window allow-high-dpi="true" background="#01528f" fps="30" />
+	<window allow-high-dpi="true" resizable="false" background="#01528f" fps="30" />
 	<icon path="icon.png" />
 	<assets path="icon.png" if="linux" />
 	<architecture exclude="armv7" if="android" />
