@@ -25,5 +25,4 @@ blah blah add smth here later
 
 <img src="./assets/fmod.png" width="300px" align="right" />
 
-Made using FMOD Studio by Firelight Technologies Pty Ltd.
-**FMod** is licensed under a **[proprietary license](https://www.fmod.com/legal)** by **Firelight Technologies Pty Ltd**.
+**FMod Studio** is licensed under a **[proprietary license](https://www.fmod.com/legal)** by **Firelight Technologies Pty Ltd**.
