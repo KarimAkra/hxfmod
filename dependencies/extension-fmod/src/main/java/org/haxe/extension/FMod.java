@@ -49,10 +49,4 @@ public class FMod extends Extension {
         Log.d(LOG_TAG, "Closed FMod from Java!");
         super.onDestroy();
     }
-
-    static {
-        Log.d(LOG_TAG, "Loading FMod libs from Java...");
-        System.loadLibrary("fmod");
-        Log.d(LOG_TAG, "Finished loading FMod libs from Java!");
-    }
 }
