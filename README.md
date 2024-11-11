@@ -7,6 +7,8 @@
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/KarimAkra/hxfmod)](https://github.com/KarimAkra/hxfmod/pulls)
 [![License](https://badgen.net/badge/license/MIT/green)](./LICENSE)
 
+Haxe/[Lime](https://lime.openfl.org) @:native bindings for [FMOD](https://fmod.com).
+
 ### Supported Platforms
 
 - ![Windows](https://custom-icon-badges.demolab.com/badge/Windows-0078D6?logo=windows11&logoColor=white)
@@ -14,8 +16,6 @@
 - ![Linux](https://img.shields.io/badge/-Linux-FCC624?logo=linux&logoColor=black&style=flat)
 - ![Android](https://img.shields.io/badge/-Android-3DDC84?logo=android&logoColor=white&style=flat)
 - ![iOS](https://img.shields.io/badge/iOS-000000?&logo=apple&logoColor=white)
-
-hxcpp and Lime @:native audio playback using [FMod](https://fmod.com).
 
 blah blah add smth here later
 
