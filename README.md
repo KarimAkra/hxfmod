@@ -1,4 +1,4 @@
-![hxfmod](./assets/hxfmod_wide.png)
+![hxfmod](./assets/hxfmod_wide_no_background.png)
 
 # hxfmod
 
