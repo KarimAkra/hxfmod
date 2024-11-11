@@ -1,0 +1,23 @@
+{
+    "name": "hxfmod",
+    "url": "https://github.com/KarimAkra/hxfmod",
+    "license": "MIT",
+    "tags": [
+        "cpp",
+        "bindings",
+        "fmod",
+        "haxe"
+    ],
+    "description": "Haxe/Lime @:native bindings for FMod.",
+    "version": "0.0.1",
+    "releasenote": "",
+    "contributors": [
+        "KarimAkra",
+        "mcagabe19",
+    ],
+    "classPath": "source",
+    "dependencies": {
+        "lime": "",
+        "hxcpp": ""
+    }
+}
