@@ -1,4 +1,4 @@
-![hxfmod](./assets/hxfmod_wide_no_background.png)
+![hxfmod](./assets/hxfmod_black_wide_no_background.png)
 
 # hxfmod
 
@@ -23,6 +23,6 @@ blah blah add smth here later
 
 **hxfmod** is available under the **[MIT License](./LICENSE)**.
 
-<img src="./assets/fmod.png" width="300px" align="right" />
+<img src="./assets/fmod_black.png" width="300px" align="right" />
 
 **FMod Engine** is licensed under a **[proprietary license](https://www.fmod.com/legal)** by **Firelight Technologies Pty Ltd**.
