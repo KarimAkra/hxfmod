@@ -1,2 +1,7 @@
-.haxelib/
-export/
+# Website
+docs/doc.xml
+pages
+
+# Samples
+samples/*/.haxelib
+samples/*/export

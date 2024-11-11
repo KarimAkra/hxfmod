@@ -1,0 +1,7 @@
+-cp source
+-lib openfl
+-xml docs/doc.xml
+--cpp docs-bin
+--macro include('hxfmod')
+--no-output
+-D doc-gen

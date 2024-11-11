@@ -1,0 +1,37 @@
+name: Github Pages
+on: workflow_dispatch # change this to push after publicing it
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+concurrency:
+  group: 'pages'
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@main
+
+      - name: Setup Haxe
+        uses: krdlab/setup-haxe@master
+        with:
+          haxe-version: 4.3.6
+
+      - name: Install rsync
+        run: sudo apt-get update && sudo apt-get install -y rsync 
+
+      - name: Install Libraries
+        run: |
+          haxelib install openfl --quiet
+          haxelib install dox --quiet
+          haxelib dev hxfmod .
+
+      - name: Create Documentation Site
+        run: chmod +x docs/docs.sh && docs/docs.sh
+
+      - name: Deploy With Github Actions
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: pages
