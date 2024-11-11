@@ -1,9 +1,11 @@
 package hxfmod.macros;
 
+#if macro
 import haxe.macro.Context;
 import haxe.macro.Expr;
 
 using haxe.macro.Tools;
+#end
 
 class MapMacro
 {
@@ -14,6 +16,7 @@ class MapMacro
 	 */
 	public static macro function buildMap(typePath:String, invert:Bool = false, ?exclude:Array<String>):Expr
 	{
+		#if !display
 		var type = Context.getType(typePath);
 		var values = [];
 
@@ -44,12 +47,16 @@ class MapMacro
 				}
 			default:
 		}
+		#end
 
 		var finalExpr;
+
+		#if !display
 		if (invert)
 			finalExpr = values.map(function(v) return macro $v{v.value} => $v{v.name});
 		else
 			finalExpr = values.map(function(v) return macro $v{v.name} => $v{v.value});
+		#end
 
 		return macro $a{finalExpr};
 	}
