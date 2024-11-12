@@ -12,7 +12,7 @@
 	<set name="BUILD_DIR" value="export/release" unless="debug" />
 	<set name="BUILD_DIR" value="export/debug" if="debug"/>
 	<source path="source" />
-	<assets path="assets" />
+	<assets path="../../assets-samples" rename="assets" />
 
 	<!-- Sample Haxelibs -->
 	<haxelib name="openfl" />
