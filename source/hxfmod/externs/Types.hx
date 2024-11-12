@@ -1,10 +1,10 @@
 package hxfmod.externs;
 
-import hxfmod.externs.FMOD_RESULT;
-import cpp.ConstCharStar;
-import cpp.Pointer;
 import cpp.UInt32;
 import cpp.RawPointer;
+import cpp.ConstCharStar;
+import hxfmod.externs.Constants;
+import hxfmod.externs.FMOD_RESULT;
 
 class Types
 {
@@ -110,145 +110,6 @@ extern class FMod_Channel
 @:native('FMOD::ChannelGroup')
 extern class FMod_ChannelGroup
 {
-}
-
-extern enum abstract FMOD_INITFLAGS(FMOD_INITFLAGS_Impl)
-{
-	@:native('FMOD_INIT_NORMAL')
-	var INIT_NORMAL;
-}
-
-extern enum abstract FMOD_TIMEUNIT(FMOD_TIMEUNIT_Impl)
-{
-	@:native('FMOD_TIMEUNIT_MS')
-	var FMOD_TIMEUNIT_MS;
-
-	@:native('FMOD_TIMEUNIT_PCM')
-	var FMOD_TIMEUNIT_PCM;
-
-	@:native('FMOD_TIMEUNIT_PCMBYTES')
-	var FMOD_TIMEUNIT_PCMBYTES;
-
-	@:native('FMOD_TIMEUNIT_RAWBYTES')
-	var FMOD_TIMEUNIT_RAWBYTES;
-
-	@:native('FMOD_TIMEUNIT_PCMFRACTION')
-	var FMOD_TIMEUNIT_PCMFRACTION;
-
-	@:native('FMOD_TIMEUNIT_MODORDER')
-	var FMOD_TIMEUNIT_MODORDER;
-
-	@:native('FMOD_TIMEUNIT_MODROW')
-	var FMOD_TIMEUNIT_MODROW;
-
-	@:native('FMOD_TIMEUNIT_MODPATTERN')
-	var FMOD_TIMEUNIT_MODPATTERN;
-
-	@:from
-	static public inline function fromInt(i:Int):FMOD_TIMEUNIT
-		return cast i;
-
-	@:to
-	extern public inline function toInt():Int
-		return untyped this;
-}
-
-extern enum abstract FMOD_MODE(FMOD_MODE_Impl)
-{
-	@:native('FMOD_DEFAULT')
-	var FMOD_DEFAULT;
-
-	@:native('FMOD_LOOP_OFF')
-	var FMOD_LOOP_OFF;
-
-	@:native('FMOD_LOOP_NORMAL')
-	var FMOD_LOOP_NORMAL;
-
-	@:native('FMOD_LOOP_BIDI')
-	var FMOD_LOOP_BIDI;
-
-	@:native('FMOD_2D')
-	var FMOD_2D;
-
-	@:native('FMOD_3D')
-	var FMOD_3D;
-
-	@:native('FMOD_CREATESTREAM')
-	var FMOD_CREATESTREAM;
-
-	@:native('FMOD_CREATESAMPLE')
-	var FMOD_CREATESAMPLE;
-
-	@:native('FMOD_CREATECOMPRESSEDSAMPLE')
-	var FMOD_CREATECOMPRESSEDSAMPLE;
-
-	@:native('FMOD_OPENUSER')
-	var FMOD_OPENUSER;
-
-	@:native('FMOD_OPENMEMORY')
-	var FMOD_OPENMEMORY;
-
-	@:native('FMOD_OPENMEMORY_POINT')
-	var FMOD_OPENMEMORY_POINT;
-
-	@:native('FMOD_OPENRAW')
-	var FMOD_OPENRAW;
-
-	@:native('FMOD_OPENONLY')
-	var FMOD_OPENONLY;
-
-	@:native('FMOD_ACCURATETIME')
-	var FMOD_ACCURATETIME;
-
-	@:native('FMOD_MPEGSEARCH')
-	var FMOD_MPEGSEARCH;
-
-	@:native('FMOD_NONBLOCKING')
-	var FMOD_NONBLOCKING;
-
-	@:native('FMOD_UNIQUE')
-	var FMOD_UNIQUE;
-
-	@:native('FMOD_3D_HEADRELATIVE')
-	var FMOD_3D_HEADRELATIVE;
-
-	@:native('FMOD_3D_WORLDRELATIVE')
-	var FMOD_3D_WORLDRELATIVE;
-
-	@:native('FMOD_3D_INVERSEROLLOFF')
-	var FMOD_3D_INVERSEROLLOFF;
-
-	@:native('FMOD_3D_LINEARROLLOFF')
-	var FMOD_3D_LINEARROLLOFF;
-
-	@:native('FMOD_3D_LINEARSQUAREROLLOFF')
-	var FMOD_3D_LINEARSQUAREROLLOFF;
-
-	@:native('FMOD_3D_INVERSETAPEREDROLLOFF')
-	var FMOD_3D_INVERSETAPEREDROLLOFF;
-
-	@:native('FMOD_3D_CUSTOMROLLOFF')
-	var FMOD_3D_CUSTOMROLLOFF;
-
-	@:native('FMOD_3D_IGNOREGEOMETRY')
-	var FMOD_3D_IGNOREGEOMETRY;
-
-	@:native('FMOD_IGNORETAGS')
-	var FMOD_IGNORETAGS;
-
-	@:native('FMOD_LOWMEM')
-	var FMOD_LOWMEM;
-
-	@:native('FMOD_VIRTUAL_PLAYFROMSTART')
-	var FMOD_VIRTUAL_PLAYFROMSTART;
-
-	@:from
-	static public inline function fromInt(i:Int):FMOD_MODE
-		return cast i;
-
-	@:to
-	extern public inline function toInt():Int
-		return untyped this;
 }
 
 extern enum abstract FMOD_SOUND_TYPE(FMOD_SOUND_TYPE_Impl)
@@ -418,27 +279,6 @@ extern enum abstract FMOD_CHANNELORDER(FMOD_CHANNELORDER_Impl)
 
 @:buildXml('<include name="${haxelib:hxfmod}/project/Build.xml" />')
 @:include('fmod_common.h')
-@:native('FMOD_INITFLAGS')
-private extern class FMOD_INITFLAGS_Impl
-{
-}
-
-@:buildXml('<include name="${haxelib:hxfmod}/project/Build.xml" />')
-@:include('fmod_common.h')
-@:native('FMOD_TIMEUNIT')
-private extern class FMOD_TIMEUNIT_Impl
-{
-}
-
-@:buildXml('<include name="${haxelib:hxfmod}/project/Build.xml" />')
-@:include('fmod_common.h')
-@:native('FMOD_MODE')
-private extern class FMOD_MODE_Impl
-{
-}
-
-@:buildXml('<include name="${haxelib:hxfmod}/project/Build.xml" />')
-@:include('fmod_common.h')
 @:native('FMOD_SOUND_TYPE')
 private extern class FMOD_SOUND_TYPE_Impl
 {
@@ -462,7 +302,6 @@ private extern class FMOD_CHANNELORDER_Impl
 @:include('fmod_common.h')
 @:unreflective
 @:structAccess
-@:structInit
 @:native('FMOD_CREATESOUNDEXINFO')
 extern class FMOD_CREATESOUNDEXINFO
 {
@@ -471,12 +310,12 @@ extern class FMOD_CREATESOUNDEXINFO
 
 	// These are essential variables that might be needed.
 	var cbsize:Int; // Size of the struct
-	var length:Int; // Length of the sound
+	var length:cpp.UInt32; // Length of the sound
 	var numchannels:Int; // Number of channels (1 for mono, 2 for stereo, etc.)
 	var format:FMOD_SOUND_FORMAT; // Sound format (PCM8, PCM16, etc.)
 	var suggestedsoundtype:FMOD_SOUND_TYPE; // Suggested sound type
 	var channelorder:FMOD_CHANNELORDER; // Channel order (stereo, surround, etc.)
-	var initialseekposition:Int; // Initial seek position in the sound (in bytes or time units)
+	var initialseekposition:cpp.UInt32; // Initial seek position in the sound (in bytes or time units)
 	var initialseekpostype:FMOD_TIMEUNIT; // Time unit for the initial seek position (e.g., FMOD_TIMEUNIT_MS)
 	var filebuffersize:Int; // Buffer size for file streaming
 	// these are all the variables that FMOD_CREATESOUNDEXINFO. i don't think i can implement them all or they're all needed so i'm keepign them out

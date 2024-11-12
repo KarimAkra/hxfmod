@@ -1,14 +1,14 @@
 package hxfmod;
 
+import hxfmod.externs.FModErrors;
 import cpp.UInt32;
 import cpp.Pointer;
-import hxfmod.externs.Types;
-import hxfmod.externs.FMOD_RESULT;
-import hxfmod.externs.Constants;
-import hxfmod.externs.Types;
-import hxfmod.Channel;
-import hxfmod.Sound;
 import cpp.RawPointer;
+import hxfmod.Sound;
+import hxfmod.Channel;
+import hxfmod.externs.Types;
+import hxfmod.externs.Constants;
+import hxfmod.externs.FMOD_RESULT;
 
 class System
 {
@@ -33,7 +33,7 @@ class System
 	public function init(maxchannels:Int, initFlags:FMOD_INITFLAGS, extradriverdata:Int = 0):FMOD_RESULT
 	{
 		var extraDriverPointer = RawPointer.addressOf(extradriverdata);
-		var result = _system[0].init(32, INIT_NORMAL, extraDriverPointer);
+		var result = _system[0].init(32, Constants.INIT_NORMAL, extraDriverPointer);
 
 		if (result == FMOD_OK)
 		{
@@ -51,11 +51,11 @@ class System
 	{
 		var sound = new Sound();
 
-		var exInfoPtr:RawPointer<FMOD_CREATESOUNDEXINFO> = RawPointer.addressOf(exinfo);
+		// var exInfoPtr:RawPointer<FMOD_CREATESOUNDEXINFO> = RawPointer.addressOf(exinfo);
 		var constCharStar:cpp.ConstCharStar = name_or_data;
 		var soundPtr:RawPointer<RawPointer<FMod_Sound>> = RawPointer.addressOf(sound._sound);
 
-		var result = _system[0].createSound(constCharStar, mode, untyped NULL, soundPtr);
+		var result = _system[0].createSound(constCharStar, mode, untyped 0, soundPtr);
 
 		if (result == FMOD_OK)
 		{
@@ -63,7 +63,8 @@ class System
 		}
 		else
 		{
-			trace('[FMod System] Failed to create sound instance with error ${result}');
+			trace('[FMod System] Failed to create sound instance with error ${result.toInt()}');
+			// trace('[FMod System] Error String: ${FModErrors.errorString(result)}');
 		}
 
 		return sound;
@@ -80,7 +81,7 @@ class System
 		}
 		else
 		{
-			trace('[FMod System] Failed to play sound instance with error ${result}');
+			trace('[FMod System] Failed to play sound instance with error ${result.toInt()}');
 		}
 
 		return result;

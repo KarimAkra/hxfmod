@@ -10,10 +10,11 @@ import haxe.io.Path;
 import hxfmod.Sound;
 import hxfmod.Channel;
 import hxfmod.System;
+import hxfmod.externs.Constants;
 import hxfmod.externs.Types;
 import lime.app.Application;
 import openfl.utils.Assets;
-import sys.FileSystem;
+import haxe.Timer;
 
 /**
  * The entry point of the application.
@@ -31,7 +32,7 @@ class Main extends Sprite
 		super();
 
 		#if linux
-		openfl.Lib.current.stage.window.setIcon(lime.graphics.Image.fromFile("icon.png"));
+		stage.window.setIcon(lime.graphics.Image.fromFile("icon.png"));
 		#end
 
 		#if mobile
@@ -40,24 +41,27 @@ class Main extends Sprite
 		if (!FileSystem.exists(Sys.getCwd() + audioFile))
 		{
 			FileSystem.createDirectory(Sys.getCwd() + Path.directory(audioFile));
-			sys.io.File.saveBytes(Sys.getCwd() + audioFile, Assets.getBytes(audioFile));
+			File.saveBytes(Sys.getCwd() + audioFile, Assets.getBytes(audioFile));
 		}
 		#end
 
+		var logo = new Bitmap(Assets.getBitmapData('assets/FMOD.png'), true);
+		var scale = Math.max(logo.width / stage.window.width, logo.height / stage.window.height);
+		logo.scaleX = logo.scaleY = scale;
+		logo.x = ((stage.window.width - logo.width) / 2);
+		logo.y = (stage.window.height - logo.height) / 2;
+		addChild(logo);
+
+		var startTime:Float = Timer.stamp();
 		system = new System();
-		system.init(32, INIT_NORMAL);
+		system.init(32, Constants.INIT_NORMAL);
 		trace('FMod System Version: ' + system.version);
 
 		channel = new Channel();
-		sound = system.createSound(Sys.getCwd() + audioFile, FMOD_CREATESAMPLE, new FMOD_CREATESOUNDEXINFO());
+		sound = system.createSound(Sys.getCwd() + audioFile, Constants.FMOD_CREATESAMPLE | Constants.FMOD_LOOP_NORMAL, new FMOD_CREATESOUNDEXINFO());
 		system.playSound(sound, false, channel);
 
-		var logo = new Bitmap(Assets.getBitmapData('assets/FMOD.png'), true);
-		var scale = Math.max(logo.bitmapData.width / stage.window.width, logo.bitmapData.height / stage.window.height);
-		logo.scaleX = logo.scaleY = scale;
-		logo.x = ((stage.window.width - logo.bitmapData.width) / 2) * 2;
-		logo.y = (stage.window.height - logo.bitmapData.height) / 2;
-		addChild(logo);
+		trace('Took ${Timer.stamp() - startTime} second(s) to load!');
 
 		Application.current.onUpdate.add(onUpdate);
 	}

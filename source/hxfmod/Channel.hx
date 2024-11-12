@@ -2,11 +2,10 @@ package hxfmod;
 
 import cpp.Pointer;
 import cpp.RawPointer;
-import hxfmod.util.LoopPoints;
+import hxfmod.externs.Types;
+import hxfmod.externs.Constants;
 import hxfmod.externs.FMOD_RESULT;
-import hxfmod.externs.Types.FMod_Sound;
-import hxfmod.externs.Types.FMod_Channel;
-import hxfmod.externs.Types.FMOD_TIMEUNIT;
+import hxfmod.util.LoopPoints;
 
 @:allow(hxfmod.System)
 class Channel

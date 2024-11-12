@@ -1,17 +1,14 @@
 package hxfmod;
 
-import cpp.CastCharStar;
+import cpp.RawConstPointer;
 import cpp.Pointer;
 import cpp.RawPointer;
+import cpp.CastCharStar;
+import hxfmod.externs.Types;
 import hxfmod.util.LoopPoints;
 import hxfmod.util.SoundFormat;
+import hxfmod.externs.Constants;
 import hxfmod.externs.FMOD_RESULT;
-import hxfmod.externs.Types.FMOD_MODE;
-import hxfmod.externs.Types.FMod_Sound;
-import hxfmod.externs.Types.FMod_Channel;
-import hxfmod.externs.Types.FMOD_TIMEUNIT;
-import hxfmod.externs.Types.FMOD_SOUND_TYPE;
-import hxfmod.externs.Types.FMOD_SOUND_FORMAT;
 
 @:allow(hxfmod.System)
 @:allow(hxfmod.Channel)
@@ -44,21 +41,23 @@ class Sound
 		return length;
 	}
 
-	// returns 1 letter from the sound grrr i hate u haxe
+	// returns 1 letter from the sound name grrr i hate u haxe
+	// it was returning 1 letter... now it's returning the whole name but some of the letters are broken..? i hate this so much :sob:
 	public function getNameAdvanced(namelen:Int):String
 	{
-		var name:cpp.Char = 0;
-		var rawPtr:RawPointer<cpp.Char> = Pointer.addressOf(name).raw;
-		var result = _sound[0].getName(rawPtr, namelen);
+		var name:cpp.Char = untyped NULL;
+		var raw:RawPointer<cpp.Char> = RawPointer.addressOf(name);
+
+		var result = _sound[0].getName(raw, namelen);
 
 		if (result != FMOD_OK)
 		{
 			trace('[FMod Sound] Failed to get sound name with error code ${result.toInt()}');
-			name = 0;
+			name = untyped NULL;
 		}
 
-		var charCode:Int = name;
-		return String.fromCharCode(charCode);
+		var constPtr:cpp.ConstPointer<cpp.Char> = cpp.ConstPointer.fromRaw(RawConstPointer.addressOf(name));
+		return cpp.NativeString.fromPointer(constPtr);
 	}
 
 	public function setMode(mode:FMOD_MODE):FMOD_RESULT
@@ -102,7 +101,7 @@ class Sound
 	@:noCompletion
 	private function get_length():Float
 	{
-		return getLengthAdvanced(FMOD_TIMEUNIT_MS);
+		return getLengthAdvanced(Constants.FMOD_TIMEUNIT_MS);
 	}
 
 	@:noCompletion
