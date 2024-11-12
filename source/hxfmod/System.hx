@@ -1,6 +1,5 @@
 package hxfmod;
 
-import hxfmod.externs.FModErrors;
 import cpp.UInt32;
 import cpp.Pointer;
 import cpp.RawPointer;
@@ -8,7 +7,9 @@ import hxfmod.Sound;
 import hxfmod.Channel;
 import hxfmod.externs.Types;
 import hxfmod.externs.Constants;
+import hxfmod.externs.FModErrors;
 import hxfmod.externs.FMOD_RESULT;
+import hxfmod.util.FModAudioSource;
 
 class System
 {
@@ -47,15 +48,36 @@ class System
 		return result;
 	}
 
-	public function createSound(name_or_data:String, mode:FMOD_MODE, exinfo:FMOD_CREATESOUNDEXINFO):Sound
+	public function createSound(name_or_data:FModAudioSource, mode:FMOD_MODE, exinfo:FMOD_CREATESOUNDEXINFO):Sound
 	{
 		var sound = new Sound();
 
-		// var exInfoPtr:RawPointer<FMOD_CREATESOUNDEXINFO> = RawPointer.addressOf(exinfo);
-		var constCharStar:cpp.ConstCharStar = name_or_data;
+		var exInfoPtr:RawPointer<FMOD_CREATESOUNDEXINFO> = RawPointer.addressOf(exinfo);
 		var soundPtr:RawPointer<RawPointer<FMod_Sound>> = RawPointer.addressOf(sound._sound);
 
-		var result = _system[0].createSound(constCharStar, mode, untyped 0, soundPtr);
+		var result = FMOD_RESULT.FMOD_ERR_INVALID_PARAM;
+
+		if (name_or_data is String)
+		{
+			if (mode & Constants.FMOD_DEFAULT == 0) mode |= Constants.FMOD_DEFAULT;
+
+			final name:String = cast name_or_data;
+			var constCharStar:cpp.ConstCharStar = name;
+			result = _system[0].createSound(constCharStar, mode, exInfoPtr, soundPtr);
+		}
+		else if (name_or_data is haxe.io.Bytes)
+		{
+			if (mode & Constants.FMOD_OPENMEMORY == 0) mode |= Constants.FMOD_OPENMEMORY;
+
+			final soundData:haxe.io.BytesData = cast(name_or_data, haxe.io.Bytes).getData();
+			final rawData:cpp.RawPointer<cpp.UInt8> = untyped __cpp__('new unsigned char[{0}]', soundData.length);
+
+			if (exinfo.length != soundData.length) exinfo.length = soundData.length;
+			cpp.Stdlib.nativeMemcpy(cast rawData, cast cpp.Pointer.ofArray(soundData).constRaw, soundData.length);
+
+			var constCharStar:cpp.ConstCharStar = untyped __cpp__('(const char *) {0}', rawData);
+			result = _system[0].createSound(constCharStar, mode, exInfoPtr, soundPtr);
+		}
 
 		if (result == FMOD_OK)
 		{
@@ -64,7 +86,6 @@ class System
 		else
 		{
 			trace('[FMod System] Failed to create sound instance with error ${result.toInt()}');
-			// trace('[FMod System] Error String: ${FModErrors.errorString(result)}');
 		}
 
 		return sound;

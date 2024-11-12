@@ -28,7 +28,6 @@ extern class FMod_System
 
 	function getVersion(version:RawPointer<cpp.UInt32>):FMOD_RESULT;
 
-	// NOTE: right now FMOD_CREATESOUNDEXINFO seems to not work correctly (fmod returns FMOD_ERR_INVALID_PARAM) so it's better to always use untyped NULL in it's place...
 	function createSound(name_or_data:cpp.ConstCharStar, mode:FMOD_MODE, exinfo:RawPointer<FMOD_CREATESOUNDEXINFO>,
 		sound:RawPointer<RawPointer<FMod_Sound>>):FMOD_RESULT;
 
@@ -306,53 +305,49 @@ private extern class FMOD_CHANNELORDER_Impl
 extern class FMOD_CREATESOUNDEXINFO
 {
 	@:native('FMOD_CREATESOUNDEXINFO')
-	function new();
+	private function new();
 
-	// These are essential variables that might be needed.
-	var cbsize:Int; // Size of the struct
-	var length:cpp.UInt32; // Length of the sound
-	var numchannels:Int; // Number of channels (1 for mono, 2 for stereo, etc.)
-	var format:FMOD_SOUND_FORMAT; // Sound format (PCM8, PCM16, etc.)
-	var suggestedsoundtype:FMOD_SOUND_TYPE; // Suggested sound type
-	var channelorder:FMOD_CHANNELORDER; // Channel order (stereo, surround, etc.)
-	var initialseekposition:cpp.UInt32; // Initial seek position in the sound (in bytes or time units)
-	var initialseekpostype:FMOD_TIMEUNIT; // Time unit for the initial seek position (e.g., FMOD_TIMEUNIT_MS)
-	var filebuffersize:Int; // Buffer size for file streaming
-	// these are all the variables that FMOD_CREATESOUNDEXINFO. i don't think i can implement them all or they're all needed so i'm keepign them out
-	// var cbsize:Int;
-	// var length:cpp.UInt32;
-	// var fileoffset:cpp.UInt32;
-	// var numchannels:Int;
-	// var defaultfrequency:Int;
-	// var format:FMOD_SOUND_FORMAT;
-	// var decodebuffersize:cpp.UInt32;
-	// var initialsubsound:Int;
-	// var numsubsounds:Int;
-	// var inclusionlist:RawPointer<Int>;
-	// var inclusionlistnum:Int;
+	public static inline function alloc():FMOD_CREATESOUNDEXINFO
+	{
+		var exInfo:cpp.Star<FMOD_CREATESOUNDEXINFO> = new FMOD_CREATESOUNDEXINFO();
+		exInfo.cbsize = cpp.Native.sizeof(FMOD_CREATESOUNDEXINFO);
+		return exInfo;
+	}
+
+	var cbsize:Int;
+	var length:cpp.UInt32;
+	var fileoffset:cpp.UInt32;
+	var numchannels:Int;
+	var defaultfrequency:Int;
+	var format:FMOD_SOUND_FORMAT;
+	var decodebuffersize:cpp.UInt32;
+	var initialsubsound:Int;
+	var numsubsounds:Int;
+	var inclusionlist:RawPointer<Int>;
+	var inclusionlistnum:Int;
 	// var pcmreadcallback:FMOD_SOUND_PCMREAD_CALLBACK;
 	// var pcmsetposcallback:FMOD_SOUND_PCMSETPOS_CALLBACK;
 	// var nonblockcallback:FMOD_SOUND_NONBLOCK_CALLBACK;
-	// var dlsname:ConstCharStar;
-	// var encryptionkey:ConstCharStar;
-	// var maxpolyphony:Int;
-	// var userdata:RawPointer<Void>;
-	// var suggestedsoundtype:FMOD_SOUND_TYPE;
+	var dlsname:ConstCharStar;
+	var encryptionkey:ConstCharStar;
+	var maxpolyphony:Int;
+	var userdata:RawPointer<cpp.Void>;
+	var suggestedsoundtype:FMOD_SOUND_TYPE;
 	// var fileuseropen:FMOD_FILE_OPEN_CALLBACK;
 	// var fileuserclose:FMOD_FILE_CLOSE_CALLBACK;
 	// var fileuserread:FMOD_FILE_READ_CALLBACK;
 	// var fileuserseek:FMOD_FILE_SEEK_CALLBACK;
 	// var fileuserasyncread:FMOD_FILE_ASYNCREAD_CALLBACK;
 	// var fileuserasynccancel:FMOD_FILE_ASYNCCANCEL_CALLBACK;
-	// var fileuserdata:RawPointer<Void>;
-	// var filebuffersize:Int;
-	// var channelorder:FMOD_CHANNELORDER;
+	var fileuserdata:RawPointer<cpp.Void>;
+	var filebuffersize:Int;
+	var channelorder:FMOD_CHANNELORDER;
 	// var initialsoundgroup:RawPointer<FMOD_SOUNDGROUP>;
-	// var initialseekposition:cpp.UInt32;
-	// var initialseekpostype:FMOD_TIMEUNIT;
-	// var ignoresetfilesystem:Int;
-	// var audioqueuepolicy:cpp.UInt32;
-	// var minmidigranularity:cpp.UInt32;
-	// var nonblockthreadid:Int;
+	var initialseekposition:cpp.UInt32;
+	var initialseekpostype:FMOD_TIMEUNIT;
+	var ignoresetfilesystem:Int;
+	var audioqueuepolicy:cpp.UInt32;
+	var minmidigranularity:cpp.UInt32;
+	var nonblockthreadid:Int;
 	// var fsbguid:FMOD_GUID;
 }
