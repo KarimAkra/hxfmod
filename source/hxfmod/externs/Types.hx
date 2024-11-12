@@ -72,7 +72,7 @@ extern class FMod_Sound
 @:unreflective
 @:structAccess
 @:native('FMOD::Channel')
-extern class FMod_Channel
+extern class FMod_Channel extends FMod_ChannelControl
 {
 	@:native('Channel')
 	private function new();
@@ -100,6 +100,11 @@ extern class FMod_Channel
 	function getCurrentSound(sound:RawPointer<RawPointer<FMod_Sound>>):FMOD_RESULT;
 
 	function getIndex(index:RawPointer<Int>):FMOD_RESULT;
+
+	// FMOD_RESULT F_API setPaused              (bool paused);
+	// FMOD_RESULT F_API getPaused              (bool *paused);
+	// FMOD_RESULT F_API setVolume              (float volume);
+	// FMOD_RESULT F_API getVolume              (float *volume);
 }
 
 @:buildXml('<include name="${haxelib:hxfmod}/project/Build.xml" />')
@@ -107,8 +112,22 @@ extern class FMod_Channel
 @:unreflective
 @:structAccess
 @:native('FMOD::ChannelGroup')
-extern class FMod_ChannelGroup
+extern class FMod_ChannelGroup extends FMod_ChannelControl
 {
+}
+
+@:buildXml('<include name="${haxelib:hxfmod}/project/Build.xml" />')
+@:include('fmod.hpp')
+@:unreflective
+@:structAccess
+@:native('FMOD::ChannelControl')
+extern class FMod_ChannelControl
+{
+	function setPaused(paused:Bool):FMOD_RESULT;
+	function getPaused(paused:RawPointer<Bool>):FMOD_RESULT;
+
+	function setVolume(volume:cpp.Float32):FMOD_RESULT;
+	function getVolume(volume:RawPointer<cpp.Float32>):FMOD_RESULT;
 }
 
 extern enum abstract FMOD_SOUND_TYPE(FMOD_SOUND_TYPE_Impl)

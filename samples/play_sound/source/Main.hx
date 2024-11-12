@@ -25,7 +25,7 @@ class Main extends Sprite
 	public var sound:Sound;
 	public var channel:Channel;
 
-	var audioFile:String = 'assets/Anamanaguchi.mp3';
+	var audioFile:String = 'assets/Anamanaguchi.ogg';
 
 	public function new()
 	{

@@ -13,7 +13,7 @@ import hxfmod.util.FModAudioSource;
 
 class System
 {
-	public var version(get, null):Int;
+	public var version(get, never):Int;
 
 	private var _system:RawPointer<FMod_System> = untyped NULL;
 
