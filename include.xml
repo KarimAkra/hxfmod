@@ -12,5 +12,5 @@
 
 	<source path="source" />
 	<sample path="samples/play_sound" />
-	<haxeflag name="--macro" value="hxfmod.macros.DLLMacro.addDLLs()" />
+	<haxeflag name="--macro" value="hxfmod.macros.LibMacro.addLibs()" />
 </extension>
