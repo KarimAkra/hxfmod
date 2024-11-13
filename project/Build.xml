@@ -12,15 +12,15 @@
 
 	<target id="haxe">
 		<section if="windows">
-			<lib name="${haxelib:hxfmod}/project/fmod/lib/Windows64/fmod.lib" if="HXCPP_M64" />
-			<lib name="${haxelib:hxfmod}/project/fmod/lib/Windows/fmod.lib" if="HXCPP_M32" />
-			<lib name="${haxelib:hxfmod}/project/fmod/lib/WindowsArm64/fmod.lib" if="HXCPP_ARM64" />
+			<lib name="${haxelib:hxfmod}/project/fmod/lib/Windows/x64/fmod.lib" if="HXCPP_M64" />
+			<lib name="${haxelib:hxfmod}/project/fmod/lib/Windows/x86/fmod.lib" if="HXCPP_M32" />
+			<lib name="${haxelib:hxfmod}/project/fmod/lib/Windows/arm64/fmod.lib" if="HXCPP_ARM64" />
 		</section>
 
 		<section if="winrt">
-			<lib name="${haxelib:hxfmod}/project/fmod/lib/WinRT64/fmod.lib" if="HXCPP_M64" />
-			<lib name="${haxelib:hxfmod}/project/fmod/lib/WinRT/fmod.lib" if="HXCPP_M32" />
-			<lib name="${haxelib:hxfmod}/project/fmod/lib/WinRTArm/fmod.lib" if="HXCPP_ARMV7"/>
+			<lib name="${haxelib:hxfmod}/project/fmod/lib/WinRT/x64/fmod.lib" if="HXCPP_M64" />
+			<lib name="${haxelib:hxfmod}/project/fmod/lib/WinRT/x86/fmod.lib" if="HXCPP_M32" />
+			<lib name="${haxelib:hxfmod}/project/fmod/lib/WinRT/arm64/fmod.lib" if="HXCPP_ARM64" />
 		</section>
 
 		<lib name="${haxelib:hxfmod}/project/fmod/lib/MacOS/libfmod.dylib" if="mac" />

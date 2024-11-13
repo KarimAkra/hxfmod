@@ -3,14 +3,14 @@
 	<!-- Sample Application Settings -->
 	<meta title="HXFmod Play Sound Sample" packageName="com.hxfmod.play_sound" package="com.hxfmod.play_sound" version="0.0.1" company="KarimAkra" />
 	<app file="HXFmod" main="Main"/>
-	<window allow-high-dpi="true" resizable="false" background="#01528f" fps="30" />
+	<window allow-high-dpi="true" resizable="false" orientation="landscape" background="#01528f" fps="30" />
 	<icon path="icon.png" />
 	<assets path="icon.png" if="linux" />
 	<architecture exclude="armv7" if="android" />
 
 	<!-- Sample Path Settings -->
-	<set name="BUILD_DIR" value="export/release" unless="debug" />
 	<set name="BUILD_DIR" value="export/debug" if="debug"/>
+	<set name="BUILD_DIR" value="export/release" unless="debug" />
 	<source path="source" />
 	<assets path="../../assets-samples" rename="assets" />
 
@@ -22,5 +22,7 @@
 	<!-- Sample Defines -->
 	<haxeflag name="-dce" value="full" />
 	<haxedef name="message.reporting" value="pretty" />
+	<haxedef name="HXFMOD_EXPORT_DIR" value="export/debug" if="debug" />
+	<haxedef name="HXFMOD_EXPORT_DIR" value="export/release" unless="debug" />
 	<haxedef name="openfl_dpi_aware" />
 </project>

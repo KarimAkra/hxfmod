@@ -2,14 +2,15 @@
 <extension xmlns="http://lime.openfl.org/project/1.0.4"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://lime.openfl.org/project/1.0.4 http://lime.openfl.org/xsd/project-1.0.4.xsd">
 
-	<!--<ndll name="c++_shared" dir="project/fmod/lib" if="android" />-->
-	<ndll name="fmod" dir="project/fmod/lib" if="android" />
+	<log error="hxfmod is only available on CPP targets." unless="cpp" />
 
 	<section if="android">
+		<ndll name="fmod" dir="project/fmod/lib" />
 		<dependency name="extension-fmod" path="dependencies/extension-fmod" />
 		<config:android extension="org.haxe.extension.FMod" />
 	</section>
 
 	<source path="source" />
-	<sample path="samples" />
+	<sample path="samples/play_sound" />
+	<haxeflag name="--macro" value="hxfmod.macros.DLLMacro.addDLLs()" />
 </extension>
