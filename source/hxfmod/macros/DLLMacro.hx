@@ -65,13 +65,13 @@ class DLLMacro
 		var dll:String = '';
 		#end
 
-		for (dll in FileSystem.readDirectory(arch))
+		for (file in FileSystem.readDirectory(arch))
 		{
-			if (Path.extension(dll) == dll)
+			if (Path.extension(file) == dll)
 			{
-				var path = Sys.getCwd() + Path.join([exportDir, bin, dll]);
-				File.copy(arch + dll, path);
-				trace('copied ${dll} to ${path}');
+				var path = Sys.getCwd() + Path.join([exportDir, bin, file]);
+				File.copy(arch + file, path);
+				trace('copied ${file} to ${path}');
 			}
 		}
 	}
