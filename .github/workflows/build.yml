@@ -41,10 +41,11 @@ jobs:
 
       - name: Install Libraries
         run: |
-          haxelib install hmm --quiet
-          haxelib run hmm install --quiet
-          haxelib run lime rebuild hxcpp
-        working-directory: samples/${{ inputs.projectName }}
+          curl --output ../hxcpp-4.3.45.zip --location https://github.com/HaxeFoundation/hxcpp/releases/download/v4.3.45/hxcpp-4.3.45.zip
+          haxelib install ../hxcpp-4.3.45.zip --quiet
+          haxelib install lime --quiet
+          haxelib install openfl --quiet
+          haxelib dev hxfmod .
 
       - name: Configure Android
         if: inputs.name == 'Android'
