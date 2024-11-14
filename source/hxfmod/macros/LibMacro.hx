@@ -38,8 +38,8 @@ class LibMacro
 		var arch:String = getHXFmodDir() + "project/fmod/lib/WinRT/x64/";
 		#elseif HXCPP_M32
 		var arch:String = getHXFmodDir() + "project/fmod/lib/WinRT/x86/";
-		#elseif HXCPP_ARM64
-		var arch:String = getHXFmodDir() + "project/fmod/lib/WinRT/arm64/";
+		#elseif HXCPP_ARMV7
+		var arch:String = getHXFmodDir() + "project/fmod/lib/WinRT/arm/";
 		#else
 		var arch:String = '';
 		#end
