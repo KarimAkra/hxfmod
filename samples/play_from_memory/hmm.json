@@ -1,0 +1,25 @@
+{
+    "dependencies": [
+        {
+            "name": "hxcpp",
+            "type": "git",
+            "ref": "v4.3.68",
+            "url": "https://github.com/HaxeFoundation/hxcpp"
+        },
+        {
+            "name": "lime",
+            "type": "haxelib",
+            "version": null
+        },
+        {
+            "name": "openfl",
+            "type": "haxelib",
+            "version": null
+        },
+        {
+            "name": "hxfmod",
+            "type": "dev",
+            "path": "../.."
+        }
+    ]
+}

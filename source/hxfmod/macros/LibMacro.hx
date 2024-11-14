@@ -21,64 +21,88 @@ class LibMacro
 
 		var exportDir:String = Context.getDefines().get('HXFMOD_EXPORT_DIR');
 
+		#if HXCPP_M64
 		#if windows
-		#if HXCPP_M64
 		var arch:String = getHXFmodDir() + "project/fmod/lib/Windows/x64/";
-		#elseif HXCPP_M32
-		var arch:String = getHXFmodDir() + "project/fmod/lib/Windows/x86/";
-		#elseif HXCPP_ARM64
-		var arch:String = getHXFmodDir() + "project/fmod/lib/Windows/arm64/";
-		#else
-		var arch:String = '';
-		#end
-		var bin:String = "windows/bin/";
-		var dll:String = "dll";
 		#elseif winrt
-		#if HXCPP_M64
 		var arch:String = getHXFmodDir() + "project/fmod/lib/WinRT/x64/";
-		#elseif HXCPP_M32
-		var arch:String = getHXFmodDir() + "project/fmod/lib/WinRT/x86/";
-		#elseif HXCPP_ARMV7
-		var arch:String = getHXFmodDir() + "project/fmod/lib/WinRT/arm/";
+		#elseif linux
+		var arch:String = getHXFmodDir() + 'project/fmod/lib/Linux/x86_64/';
 		#else
 		var arch:String = '';
 		#end
-		var bin:String = "winrt/bin/";
-		var dll:String = "dll";
+		#end
+
+		#if HXCPP_M32
+		#if windows
+		var arch:String = getHXFmodDir() + "project/fmod/lib/Windows/x86/";
+		#elseif winrt
+		var arch:String = getHXFmodDir() + "project/fmod/lib/WinRT/x86/";
 		#elseif linux
-		#if HXCPP_M64
-		var arch:String = getHXFmodDir() + 'project/fmod/lib/Linux/x86_64/';
-		#elseif HXCPP_M32
 		var arch:String = getHXFmodDir() + 'project/fmod/lib/Linux/x86/';
-		#elseif HXCPP_ARM64
+		#else
+		var arch:String = '';
+		#end
+		#end
+
+		#if HXCPP_ARM64
+		#if windows
+		var arch:String = getHXFmodDir() + "project/fmod/lib/Windows/arm64/";
+		#elseif winrt
+		var arch:String = '';
+		Context.error("hxfmod is not supported on arm64 WinRT targets.", Context.currentPos());
+		#elseif linux
 		var arch:String = getHXFmodDir() + 'project/fmod/lib/Linux/arm64/';
-		#elseif HXCPP_ARMV7
+		#else
+		var arch:String = '';
+		#end
+		#end
+
+		#if HXCPP_ARMV7
+		#if windows
+		var arch:String = '';
+		Context.error("hxfmod is not supported on armv7 Windows targets.", Context.currentPos());
+		#elseif winrt
+		var arch:String = getHXFmodDir() + "project/fmod/lib/WinRT/arm/";
+		#elseif linux
 		var arch:String = getHXFmodDir() + 'project/fmod/lib/Linux/arm/';
 		#else
 		var arch:String = '';
 		#end
+		#end
+
+		#if windows
+		var bin:String = "windows/bin/";
+		var dll:String = "dll";
+		#elseif winrt
+		var bin:String = "winrt/bin/";
+		var dll:String = "dll";
+		#elseif linux
 		var bin:String = '/usr/lib/';
 		var dll:String = "so";
+		var ver:String = '14';
 		#else
-		var arch:String = '';
 		var bin:String = '';
 		var dll:String = '';
 		#end
 
+		#if ((HXCPP_M64 || HXCPP_M32 || HXCPP_ARM64 || HXCPP_ARMV7) && (windows || winrt || linux))
 		for (file in FileSystem.readDirectory(arch))
 		{
 			if (Path.extension(file) == dll)
 			{
 				#if linux
-				Sys.command('sudo', ['cp', arch + file, bin + 'libfmod.so.14']);
-				trace('copied ${file} to ' + bin + 'libfmod.so.14');
+				Sys.command('sudo', ['cp', arch + file, bin + '$file.$ver']);
+				trace('copied ${file} to ' + bin + '$file.$ver');
 				#else
-				var path = Sys.getCwd() + Path.join([exportDir, bin, file]);
+				var path = Path.join([exportDir, bin, file]);
+				FileSystem.createDirectory(Path.directory(path));
 				File.copy(arch + file, path);
-				trace('copied ${file} to ${path}');
+				trace('copied ${file} to ${Sys.getCwd() + path}');
 				#end
 			}
 		}
+		#end
 	}
 	#end
 

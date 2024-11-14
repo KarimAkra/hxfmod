@@ -2,7 +2,7 @@
   "name": "hxfmod",
   "url": "https://github.com/KarimAkra/hxfmod",
   "license": "MIT",
-  "tags": ["cpp", "bindings", "fmod", "haxe"],
+  "tags": ["cpp", "lime", "openfl", "bindings", "fmod", "fmod-engine", "haxe"],
   "description": "Haxe/Lime @:native bindings for FMod.",
   "version": "0.0.1",
   "releasenote": "",
@@ -10,6 +10,7 @@
   "classPath": "source",
   "dependencies": {
     "hxcpp": "",
-    "lime": ""
+    "lime": "",
+    "openfl": ""
   }
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project>
 	<!-- Sample Application Settings -->
-	<meta title="HXFmod - Play Sound Sample" packageName="com.hxfmod.play_sound" package="com.hxfmod.play_sound" version="0.0.1" company="KarimAkra" />
+	<meta title="HXFmod - Play From Memory Sample" packageName="com.hxfmod.play_from_memory" version="0.0.1" company="KarimAkra" />
 	<app file="HXFmod" main="Main"/>
 	<window allow-high-dpi="true" resizable="false" orientation="landscape" background="#01528f" fps="30" />
 	<icon path="icon.png" />
