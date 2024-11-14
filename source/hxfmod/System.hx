@@ -17,6 +17,7 @@ using StringTools;
 class System
 {
 	public var version(get, never):Int;
+	public var output(get, set):FMOD_OUTPUTTYPE;
 
 	private var _system:RawPointer<FMod_System> = untyped NULL;
 
@@ -41,6 +42,9 @@ class System
 
 		if (result == FMOD_OK)
 		{
+			#if android
+			output = FMOD_OUTPUTTYPE_OPENSL;
+			#end
 			trace('[FMod System] Succesfully initialized the FMod System!');
 		}
 		else
@@ -155,8 +159,24 @@ class System
 	private function get_version():cpp.UInt32
 	{
 		var versionCode:cpp.UInt32 = 0;
-		var rawPtr:RawPointer<cpp.UInt32> = Pointer.addressOf(versionCode).raw;
+		var rawPtr:RawPointer<cpp.UInt32> = RawPointer.addressOf(versionCode);
 		_system[0].getVersion(rawPtr);
 		return versionCode;
+	}
+
+	@:noCompletion
+	private function get_output():FMOD_OUTPUTTYPE
+	{
+		var output:FMOD_OUTPUTTYPE = FMOD_OUTPUTTYPE_AUTODETECT;
+		var rawPtr:RawPointer<FMOD_OUTPUTTYPE> = RawPointer.addressOf(output);
+		_system[0].getOutput(rawPtr);
+		return output;
+	}
+
+	@:noCompletion
+	private function set_output(output:FMOD_OUTPUTTYPE):FMOD_OUTPUTTYPE
+	{
+		_system[0].setOutput(output);
+		return output;
 	}
 }

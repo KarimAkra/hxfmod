@@ -23,8 +23,10 @@ extern class FMod_System
 	function init(maxchannels:Int, initFlags:FMOD_INITFLAGS, extradriverdata:RawPointer<Int> = null):FMOD_RESULT;
 	function close():FMOD_RESULT;
 	function release():FMOD_RESULT;
-
 	function update():FMOD_RESULT;
+
+	function setOutput(output:FMOD_OUTPUTTYPE):FMOD_RESULT;
+	function getOutput(output:RawPointer<FMOD_OUTPUTTYPE>):FMOD_RESULT;
 
 	function getVersion(version:RawPointer<cpp.UInt32>):FMOD_RESULT;
 
@@ -62,8 +64,9 @@ extern class FMod_Sound
 
 	function setMode(mode:FMOD_MODE):FMOD_RESULT;
 	function getMode(mode:RawPointer<FMOD_MODE>):FMOD_RESULT;
-	
-	function getLoopPoints(loopstart:RawPointer<cpp.UInt32>, loopstarttype:FMOD_TIMEUNIT, loopend:RawPointer<cpp.UInt32>, loopendtype:FMOD_TIMEUNIT):FMOD_RESULT;
+
+	function getLoopPoints(loopstart:RawPointer<cpp.UInt32>, loopstarttype:FMOD_TIMEUNIT, loopend:RawPointer<cpp.UInt32>,
+		loopendtype:FMOD_TIMEUNIT):FMOD_RESULT;
 	function setLoopPoints(loopstart:cpp.UInt32, loopstarttype:FMOD_TIMEUNIT, loopend:cpp.UInt32, loopendtype:FMOD_TIMEUNIT):FMOD_RESULT;
 }
 
@@ -88,7 +91,6 @@ extern class FMod_Channel extends FMod_ChannelControl
 
 	// function setChannelGroup(channelgroup:RawPointer<FMod_ChannelGroup>):FMOD_RESULT;
 	// function getChannelGroup(channelgroup:RawPointer<RawPointer<FMod_ChannelGroup>>):FMOD_RESULT;
-
 	function setLoopCount(loopcount:Int):FMOD_RESULT;
 	function getLoopCount(loopcount:RawPointer<Int>):FMOD_RESULT;
 
@@ -100,11 +102,6 @@ extern class FMod_Channel extends FMod_ChannelControl
 	function getCurrentSound(sound:RawPointer<RawPointer<FMod_Sound>>):FMOD_RESULT;
 
 	function getIndex(index:RawPointer<Int>):FMOD_RESULT;
-
-	// FMOD_RESULT F_API setPaused              (bool paused);
-	// FMOD_RESULT F_API getPaused              (bool *paused);
-	// FMOD_RESULT F_API setVolume              (float volume);
-	// FMOD_RESULT F_API getVolume              (float *volume);
 }
 
 @:buildXml('<include name="${haxelib:hxfmod}/project/Build.xml" />')
@@ -210,9 +207,6 @@ extern enum abstract FMOD_SOUND_TYPE(FMOD_SOUND_TYPE_Impl)
 	@:native('FMOD_SOUND_TYPE_MAX')
 	var FMOD_SOUND_TYPE_MAX;
 
-	@:native('FMOD_SOUND_TYPE_FORCEINT')
-	var FMOD_SOUND_TYPE_FORCEINT;
-
 	@:from
 	static public inline function fromInt(i:Int):FMOD_SOUND_TYPE
 		return cast i;
@@ -248,9 +242,6 @@ extern enum abstract FMOD_SOUND_FORMAT(FMOD_SOUND_FORMAT_Impl)
 	@:native('FMOD_SOUND_FORMAT_MAX')
 	var FMOD_SOUND_FORMAT_MAX;
 
-	@:native('FMOD_SOUND_FORMAT_FORCEINT')
-	var FMOD_SOUND_FORMAT_FORCEINT;
-
 	@:from
 	static public inline function fromInt(i:Int):FMOD_SOUND_FORMAT
 		return cast i;
@@ -283,11 +274,88 @@ extern enum abstract FMOD_CHANNELORDER(FMOD_CHANNELORDER_Impl)
 	@:native('FMOD_CHANNELORDER_MAX')
 	var FMOD_CHANNELORDER_MAX;
 
-	@:native('FMOD_CHANNELORDER_FORCEINT')
-	var FMOD_CHANNELORDER_FORCEINT;
-
 	@:from
 	static public inline function fromInt(i:Int):FMOD_CHANNELORDER
+		return cast i;
+
+	@:to
+	extern public inline function toInt():Int
+		return untyped this;
+}
+
+extern enum abstract FMOD_OUTPUTTYPE(FMOD_OUTPUTTYPE_Impl)
+{
+	@:native('FMOD_OUTPUTTYPE_AUTODETECT')
+	var FMOD_OUTPUTTYPE_AUTODETECT;
+
+	@:native('FMOD_OUTPUTTYPE_UNKNOWN')
+	var FMOD_OUTPUTTYPE_UNKNOWN;
+
+	@:native('FMOD_OUTPUTTYPE_NOSOUND')
+	var FMOD_OUTPUTTYPE_NOSOUND;
+
+	@:native('FMOD_OUTPUTTYPE_WAVWRITER')
+	var FMOD_OUTPUTTYPE_WAVWRITER;
+
+	@:native('FMOD_OUTPUTTYPE_NOSOUND_NRT')
+	var FMOD_OUTPUTTYPE_NOSOUND_NRT;
+
+	@:native('FMOD_OUTPUTTYPE_WAVWRITER_NRT')
+	var FMOD_OUTPUTTYPE_WAVWRITER_NRT;
+
+	@:native('FMOD_OUTPUTTYPE_WASAPI')
+	var FMOD_OUTPUTTYPE_WASAPI;
+
+	@:native('FMOD_OUTPUTTYPE_ASIO')
+	var FMOD_OUTPUTTYPE_ASIO;
+
+	@:native('FMOD_OUTPUTTYPE_PULSEAUDIO')
+	var FMOD_OUTPUTTYPE_PULSEAUDIO;
+
+	@:native('FMOD_OUTPUTTYPE_ALSA')
+	var FMOD_OUTPUTTYPE_ALSA;
+
+	@:native('FMOD_OUTPUTTYPE_COREAUDIO')
+	var FMOD_OUTPUTTYPE_COREAUDIO;
+
+	@:native('FMOD_OUTPUTTYPE_AUDIOTRACK')
+	var FMOD_OUTPUTTYPE_AUDIOTRACK;
+
+	@:native('FMOD_OUTPUTTYPE_OPENSL')
+	var FMOD_OUTPUTTYPE_OPENSL;
+
+	@:native('FMOD_OUTPUTTYPE_AUDIOOUT')
+	var FMOD_OUTPUTTYPE_AUDIOOUT;
+
+	@:native('FMOD_OUTPUTTYPE_AUDIO3D')
+	var FMOD_OUTPUTTYPE_AUDIO3D;
+
+	@:native('FMOD_OUTPUTTYPE_WEBAUDIO')
+	var FMOD_OUTPUTTYPE_WEBAUDIO;
+
+	@:native('FMOD_OUTPUTTYPE_NNAUDIO')
+	var FMOD_OUTPUTTYPE_NNAUDIO;
+
+	@:native('FMOD_OUTPUTTYPE_WINSONIC')
+	var FMOD_OUTPUTTYPE_WINSONIC;
+
+	@:native('FMOD_OUTPUTTYPE_AAUDIO')
+	var FMOD_OUTPUTTYPE_AAUDIO;
+
+	@:native('FMOD_OUTPUTTYPE_AUDIOWORKLET')
+	var FMOD_OUTPUTTYPE_AUDIOWORKLET;
+
+	@:native('FMOD_OUTPUTTYPE_PHASE')
+	var FMOD_OUTPUTTYPE_PHASE;
+
+	@:native('FMOD_OUTPUTTYPE_OHAUDIO')
+	var FMOD_OUTPUTTYPE_OHAUDIO;
+
+	@:native('FMOD_OUTPUTTYPE_MAX')
+	var FMOD_OUTPUTTYPE_MAX;
+
+	@:from
+	static public inline function fromInt(i:Int):FMOD_OUTPUTTYPE
 		return cast i;
 
 	@:to
@@ -313,6 +381,13 @@ private extern class FMOD_SOUND_FORMAT_Impl
 @:include('fmod_common.h')
 @:native('FMOD_CHANNELORDER')
 private extern class FMOD_CHANNELORDER_Impl
+{
+}
+
+@:buildXml('<include name="${haxelib:hxfmod}/project/Build.xml" />')
+@:include('fmod_common.h')
+@:native('FMOD_OUTPUTTYPE')
+private extern class FMOD_OUTPUTTYPE_Impl
 {
 }
 

@@ -37,12 +37,6 @@ class Main extends Sprite
 
 		#if mobile
 		Sys.setCwd(lime.system.System.applicationStorageDirectory);
-
-		if (!FileSystem.exists(Sys.getCwd() + audioFile))
-		{
-			FileSystem.createDirectory(Sys.getCwd() + Path.directory(audioFile));
-			File.saveBytes(Sys.getCwd() + audioFile, Assets.getBytes(audioFile));
-		}
 		#end
 
 		var logo = new Bitmap(Assets.getBitmapData('assets/FMOD.png'), true);
