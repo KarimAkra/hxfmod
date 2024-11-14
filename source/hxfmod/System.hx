@@ -3,6 +3,7 @@ package hxfmod;
 import cpp.UInt32;
 import cpp.Pointer;
 import cpp.RawPointer;
+import haxe.io.Path;
 import hxfmod.Sound;
 import hxfmod.Channel;
 import hxfmod.externs.Types;
@@ -10,6 +11,8 @@ import hxfmod.externs.Constants;
 import hxfmod.externs.FModErrors;
 import hxfmod.externs.FMOD_RESULT;
 import hxfmod.util.FModAudioSource;
+
+using StringTools;
 
 class System
 {
@@ -59,20 +62,44 @@ class System
 
 		if (name_or_data is String)
 		{
-			if (mode & Constants.FMOD_DEFAULT == 0) mode |= Constants.FMOD_DEFAULT;
+			if (mode & Constants.FMOD_DEFAULT == 0)
+				mode |= Constants.FMOD_DEFAULT;
 
-			final name:String = cast name_or_data;
+			var name:String = cast name_or_data;
+
+			if (name.contains(":") #if android && !lime.utils.Assets.exists(name) #end)
+				name = name.split(":")[1];
+
+			#if android
+			if (lime.utils.Assets.exists(name))
+			{
+				// name = Path.join(['file:///android_asset/', Path.normalize(name)]);
+				name = 'file:///android_asset/' + Path.normalize(name.contains(":") ? name = name.split(":")[1] : name);
+			}
+			else
+			{
+				name = Path.normalize(name);
+			}
+			#elseif windows
+			name = Path.normalize(name).split('/').join('\\');
+			#else
+			name = Path.normalize(name);
+			#end
+
+			trace('playing audio from $name!');
 			var constCharStar:cpp.ConstCharStar = name;
 			result = _system[0].createSound(constCharStar, mode, exInfoPtr, soundPtr);
 		}
 		else if (name_or_data is haxe.io.Bytes)
 		{
-			if (mode & Constants.FMOD_OPENMEMORY == 0) mode |= Constants.FMOD_OPENMEMORY;
+			if (mode & Constants.FMOD_OPENMEMORY == 0)
+				mode |= Constants.FMOD_OPENMEMORY;
 
 			final soundData:haxe.io.BytesData = cast(name_or_data, haxe.io.Bytes).getData();
 			final rawData:cpp.RawPointer<cpp.UInt8> = untyped __cpp__('new unsigned char[{0}]', soundData.length);
 
-			if (exinfo.length != soundData.length) exinfo.length = soundData.length;
+			if (exinfo.length != soundData.length)
+				exinfo.length = soundData.length;
 			cpp.Stdlib.nativeMemcpy(cast rawData, cast cpp.Pointer.ofArray(soundData).constRaw, soundData.length);
 
 			var constCharStar:cpp.ConstCharStar = untyped __cpp__('(const char *) {0}', rawData);
@@ -86,6 +113,7 @@ class System
 		else
 		{
 			trace('[FMod System] Failed to create sound instance with error ${result.toInt()}');
+			trace('[FMod System] Error Details: ${FModErrors.errorString(result)}');
 		}
 
 		return sound;
