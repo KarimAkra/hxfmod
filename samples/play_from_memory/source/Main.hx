@@ -58,6 +58,14 @@ class Main extends Sprite
 		trace('Took ${Timer.stamp() - startTime} second(s) to load!');
 
 		Application.current.onUpdate.add(onUpdate);
+
+		Application.current.window.onDeactivate.add(() -> {
+			channel.paused = true;
+		});
+
+		Application.current.window.onActivate.add(() -> {
+			channel.paused = false;
+		});
 	}
 
 	public function onUpdate(elapsed:Int)

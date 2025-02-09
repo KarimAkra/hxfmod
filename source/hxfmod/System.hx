@@ -43,7 +43,8 @@ class System
 		if (lastResultCode == FMOD_OK)
 		{
 			#if android
-			output = FMOD_OUTPUTTYPE_OPENSL;
+			// output = FMOD_OUTPUTTYPE_OPENSL;
+			_system[0].setOutput(FMOD_OUTPUTTYPE_OPENSL);
 			#end
 			trace('[FMod System] Succesfully initialized the FMod System!');
 

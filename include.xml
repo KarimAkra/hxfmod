@@ -7,7 +7,7 @@
 	<section if="android">
 		<ndll name="fmod" dir="project/fmod/lib" />
 		<dependency name="extension-fmod" path="dependencies/extension-fmod" />
-		<config:android extension="org.haxe.extension.FMod" />
+		<config:android extension="org.haxe.extension.fmod.FMod" />
 	</section>
 
 	<source path="source" />
