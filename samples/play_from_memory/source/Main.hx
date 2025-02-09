@@ -52,7 +52,7 @@ class Main extends Sprite
 		trace('FMod System Version: ' + system.version);
 
 		channel = new Channel();
-		sound = system.createSound(Assets.getBytes(audioFile), Constants.FMOD_LOOP_NORMAL, FMOD_CREATESOUNDEXINFO.alloc());
+		sound = system.createSound(Assets.getBytes(audioFile), Constants.LOOP_NORMAL, FMOD_CREATESOUNDEXINFO.alloc());
 		system.playSound(sound, false, channel);
 
 		trace('Took ${Timer.stamp() - startTime} second(s) to load!');

@@ -1,4 +1,4 @@
-package org.haxe.extension;
+package org.haxe.extension.fmod;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -32,21 +32,23 @@ import org.haxe.extension.Extension;
 */
 public class FMod extends Extension {
 
-    public static final String LOG_TAG = "FMod";
+    public static final String LOG = "FMod";
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        Log.d(LOG_TAG, "Initializing FMod from Java...");
+    public void onCreate(Bundle savedInstanceState)
+	{
+        Log.d(LOG, "Initializing Android FMod...");
         org.fmod.FMOD.init(mainActivity);
-        Log.d(LOG_TAG, "Initialized FMod from Java!");
+        Log.d(LOG, "Initialized Android FMod!");
+
         super.onCreate(savedInstanceState);
     }
 
     @Override
-    public void onDestroy() {
-        Log.d(LOG_TAG, "Closing FMod from Java...");
+    public void onDestroy()
+	{
         org.fmod.FMOD.close();
-        Log.d(LOG_TAG, "Closed FMod from Java!");
+		
         super.onDestroy();
     }
 }

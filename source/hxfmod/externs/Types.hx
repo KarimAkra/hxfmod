@@ -4,127 +4,120 @@ import cpp.UInt32;
 import cpp.RawPointer;
 import cpp.ConstCharStar;
 import hxfmod.externs.Constants;
-import hxfmod.externs.FMOD_RESULT;
+import hxfmod.externs.ResultCode;
 
 class Types
 {
 }
 
-@:buildXml('<include name="${haxelib:hxfmod}/project/Build.xml" />')
-@:include('fmod.hpp')
-@:unreflective
-@:structAccess
-@:native('FMOD::System')
+@:build(hxfmod.macros.LinkerMacro.build('fmod.hpp'))
+extern class FMod
+{
+	@:native('System_Create')
+	static function System_Create(system:RawPointer<RawPointer<FMod_System>>, headerversion:cpp.UInt32):ResultCode;
+}
+
+@:build(hxfmod.macros.LinkerMacro.build('fmod.hpp', 'FMOD::System', true, true))
 extern class FMod_System
 {
 	@:native('System')
 	private function new();
 
-	function init(maxchannels:Int, initFlags:FMOD_INITFLAGS, extradriverdata:RawPointer<Int> = null):FMOD_RESULT;
-	function close():FMOD_RESULT;
-	function release():FMOD_RESULT;
-	function update():FMOD_RESULT;
+	function init(maxchannels:Int, initFlags:InitFlags, extradriverdata:RawPointer<Int> = null):ResultCode;
+	function close():ResultCode;
+	function release():ResultCode;
+	function update():ResultCode;
 
-	function setOutput(output:FMOD_OUTPUTTYPE):FMOD_RESULT;
-	function getOutput(output:RawPointer<FMOD_OUTPUTTYPE>):FMOD_RESULT;
+	function setOutput(output:FMOD_OUTPUTTYPE):ResultCode;
+	function getOutput(output:RawPointer<FMOD_OUTPUTTYPE>):ResultCode;
 
-	function getVersion(version:RawPointer<cpp.UInt32>):FMOD_RESULT;
+	function getVersion(version:RawPointer<cpp.UInt32>):ResultCode;
 
-	function createSound(name_or_data:cpp.ConstCharStar, mode:FMOD_MODE, exinfo:RawPointer<FMOD_CREATESOUNDEXINFO>,
-		sound:RawPointer<RawPointer<FMod_Sound>>):FMOD_RESULT;
+	function createSound(name_or_data:cpp.ConstCharStar, mode:Mode, exinfo:RawPointer<FMOD_CREATESOUNDEXINFO>,
+		sound:RawPointer<RawPointer<FMod_Sound>>):ResultCode;
 
 	function playSound(sound:RawPointer<FMod_Sound>, ChannelGroup:RawPointer<FMod_ChannelGroup>, paused:Bool,
-		channel:RawPointer<RawPointer<FMod_Channel>>):FMOD_RESULT;
+		channel:RawPointer<RawPointer<FMod_Channel>>):ResultCode;
 }
 
-@:buildXml('<include name="${haxelib:hxfmod}/project/Build.xml" />')
-@:include('fmod.hpp')
-@:unreflective
-@:structAccess
-@:native('FMOD::Sound')
+@:build(hxfmod.macros.LinkerMacro.build('fmod.hpp', 'FMOD::Sound', true, true))
 extern class FMod_Sound
 {
 	@:native('Sound')
 	private function new();
 
-	function release():FMOD_RESULT;
+	function release():ResultCode;
 
-	function getLength(length:RawPointer<UInt32>, lengthtype:FMOD_TIMEUNIT):FMOD_RESULT;
+	function getLength(length:RawPointer<UInt32>, lengthtype:TimeUnit):ResultCode;
 
-	function getFormat(type:RawPointer<FMOD_SOUND_TYPE>, format:RawPointer<FMOD_SOUND_FORMAT>, channels:RawPointer<Int>, bits:RawPointer<Int>):FMOD_RESULT;
+	function getFormat(type:RawPointer<FMOD_SOUND_TYPE>, format:RawPointer<FMOD_SOUND_FORMAT>, channels:RawPointer<Int>, bits:RawPointer<Int>):ResultCode;
 
-	function getName(name:RawPointer<cpp.Char>, namelen:Int):FMOD_RESULT;
+	function getName(name:RawPointer<cpp.Char>, namelen:Int):ResultCode;
 
-	function getDefaults(frequency:RawPointer<cpp.Float32>, volume:RawPointer<cpp.Float32>):FMOD_RESULT;
-	function setDefaults(frequency:cpp.Float32, volume:cpp.Float32):FMOD_RESULT;
+	function getDefaults(frequency:RawPointer<cpp.Float32>, volume:RawPointer<cpp.Float32>):ResultCode;
+	function setDefaults(frequency:cpp.Float32, volume:cpp.Float32):ResultCode;
 
-	function getNumSubSounds(numsubsounds:RawPointer<Int>):FMOD_RESULT;
+	function getNumSubSounds(numsubsounds:RawPointer<Int>):ResultCode;
 
-	function getSubSound(index:Int, subsound:RawPointer<FMod_Sound>):FMOD_RESULT;
+	function getSubSound(index:Int, subsound:RawPointer<FMod_Sound>):ResultCode;
 
-	function setMode(mode:FMOD_MODE):FMOD_RESULT;
-	function getMode(mode:RawPointer<FMOD_MODE>):FMOD_RESULT;
+	function setMode(mode:Mode):ResultCode;
+	function getMode(mode:RawPointer<Mode>):ResultCode;
 
-	function getLoopPoints(loopstart:RawPointer<cpp.UInt32>, loopstarttype:FMOD_TIMEUNIT, loopend:RawPointer<cpp.UInt32>,
-		loopendtype:FMOD_TIMEUNIT):FMOD_RESULT;
-	function setLoopPoints(loopstart:cpp.UInt32, loopstarttype:FMOD_TIMEUNIT, loopend:cpp.UInt32, loopendtype:FMOD_TIMEUNIT):FMOD_RESULT;
+	function getLoopPoints(loopstart:RawPointer<cpp.UInt32>, loopstarttype:TimeUnit, loopend:RawPointer<cpp.UInt32>, loopendtype:TimeUnit):ResultCode;
+	function setLoopPoints(loopstart:cpp.UInt32, loopstarttype:TimeUnit, loopend:cpp.UInt32, loopendtype:TimeUnit):ResultCode;
 }
 
-@:buildXml('<include name="${haxelib:hxfmod}/project/Build.xml" />')
-@:include('fmod.hpp')
-@:unreflective
-@:structAccess
-@:native('FMOD::Channel')
+@:build(hxfmod.macros.LinkerMacro.build('fmod.hpp', 'FMOD::Channel', true, true))
 extern class FMod_Channel extends FMod_ChannelControl
 {
 	@:native('Channel')
 	private function new();
 
-	function setFrequency(frequency:cpp.Float32):FMOD_RESULT;
-	function getFrequency(frequency:RawPointer<cpp.Float32>):FMOD_RESULT;
+	function setFrequency(frequency:cpp.Float32):ResultCode;
+	function getFrequency(frequency:RawPointer<cpp.Float32>):ResultCode;
 
-	function setPriority(priority:Int):FMOD_RESULT;
-	function getPriority(fpriority:RawPointer<Int>):FMOD_RESULT;
+	function setPriority(priority:Int):ResultCode;
+	function getPriority(fpriority:RawPointer<Int>):ResultCode;
 
-	function setPosition(position:UInt32, postype:FMOD_TIMEUNIT):FMOD_RESULT;
-	function getPosition(position:RawPointer<UInt32>, postype:FMOD_TIMEUNIT):FMOD_RESULT;
+	function setPosition(position:UInt32, postype:TimeUnit):ResultCode;
+	function getPosition(position:RawPointer<UInt32>, postype:TimeUnit):ResultCode;
 
-	// function setChannelGroup(channelgroup:RawPointer<FMod_ChannelGroup>):FMOD_RESULT;
-	// function getChannelGroup(channelgroup:RawPointer<RawPointer<FMod_ChannelGroup>>):FMOD_RESULT;
-	function setLoopCount(loopcount:Int):FMOD_RESULT;
-	function getLoopCount(loopcount:RawPointer<Int>):FMOD_RESULT;
+	// function setChannelGroup(channelgroup:RawPointer<FMod_ChannelGroup>):ResultCode;
+	// function getChannelGroup(channelgroup:RawPointer<RawPointer<FMod_ChannelGroup>>):ResultCode;
+	function setLoopCount(loopcount:Int):ResultCode;
+	function getLoopCount(loopcount:RawPointer<Int>):ResultCode;
 
-	function setLoopPoints(loopstart:UInt32, loopstarttype:FMOD_TIMEUNIT, loopend:UInt32, loopendtype:FMOD_TIMEUNIT):FMOD_RESULT;
-	function getLoopPoints(loopstart:RawPointer<UInt32>, loopstarttype:FMOD_TIMEUNIT, loopend:RawPointer<UInt32>, loopendtype:FMOD_TIMEUNIT):FMOD_RESULT;
+	function setLoopPoints(loopstart:UInt32, loopstarttype:TimeUnit, loopend:UInt32, loopendtype:TimeUnit):ResultCode;
+	function getLoopPoints(loopstart:RawPointer<UInt32>, loopstarttype:TimeUnit, loopend:RawPointer<UInt32>, loopendtype:TimeUnit):ResultCode;
 
-	function isVirtual(isvirtual:RawPointer<Bool>):FMOD_RESULT;
+	function isVirtual(isvirtual:RawPointer<Bool>):ResultCode;
 
-	function getCurrentSound(sound:RawPointer<RawPointer<FMod_Sound>>):FMOD_RESULT;
+	function getCurrentSound(sound:RawPointer<RawPointer<FMod_Sound>>):ResultCode;
 
-	function getIndex(index:RawPointer<Int>):FMOD_RESULT;
+	function getIndex(index:RawPointer<Int>):ResultCode;
 }
 
-@:buildXml('<include name="${haxelib:hxfmod}/project/Build.xml" />')
-@:include('fmod.hpp')
-@:unreflective
-@:structAccess
-@:native('FMOD::ChannelGroup')
+@:build(hxfmod.macros.LinkerMacro.build('fmod.hpp', 'FMOD::ChannelGroup', true, true))
 extern class FMod_ChannelGroup extends FMod_ChannelControl
 {
 }
 
-@:buildXml('<include name="${haxelib:hxfmod}/project/Build.xml" />')
-@:include('fmod.hpp')
-@:unreflective
-@:structAccess
-@:native('FMOD::ChannelControl')
+@:build(hxfmod.macros.LinkerMacro.build('fmod.hpp', 'FMOD::ChannelControl', true, true))
 extern class FMod_ChannelControl
 {
-	function setPaused(paused:Bool):FMOD_RESULT;
-	function getPaused(paused:RawPointer<Bool>):FMOD_RESULT;
+	function setPaused(paused:Bool):ResultCode;
+	function getPaused(paused:RawPointer<Bool>):ResultCode;
 
-	function setVolume(volume:cpp.Float32):FMOD_RESULT;
-	function getVolume(volume:RawPointer<cpp.Float32>):FMOD_RESULT;
+	function setVolume(volume:cpp.Float32):ResultCode;
+	function getVolume(volume:RawPointer<cpp.Float32>):ResultCode;
+}
+
+@:build(hxfmod.macros.LinkerMacro.build('fmod_errors.h'))
+extern class FMod_Errors
+{
+	@:native('FMOD_ErrorString')
+	static function ErrorString(errcode:ResultCode):cpp.ConstCharStar;
 }
 
 extern enum abstract FMOD_SOUND_TYPE(FMOD_SOUND_TYPE_Impl)
@@ -363,39 +356,27 @@ extern enum abstract FMOD_OUTPUTTYPE(FMOD_OUTPUTTYPE_Impl)
 		return untyped this;
 }
 
-@:buildXml('<include name="${haxelib:hxfmod}/project/Build.xml" />')
-@:include('fmod_common.h')
-@:native('FMOD_SOUND_TYPE')
+@:build(hxfmod.macros.LinkerMacro.build('fmod_common.h', 'FMOD_SOUND_TYPE', false))
 private extern class FMOD_SOUND_TYPE_Impl
 {
 }
 
-@:buildXml('<include name="${haxelib:hxfmod}/project/Build.xml" />')
-@:include('fmod_common.h')
-@:native('FMOD_SOUND_FORMAT')
+@:build(hxfmod.macros.LinkerMacro.build('fmod_common.h', 'FMOD_SOUND_FORMAT', false))
 private extern class FMOD_SOUND_FORMAT_Impl
 {
 }
 
-@:buildXml('<include name="${haxelib:hxfmod}/project/Build.xml" />')
-@:include('fmod_common.h')
-@:native('FMOD_CHANNELORDER')
+@:build(hxfmod.macros.LinkerMacro.build('fmod_common.h', 'FMOD_CHANNELORDER', false))
 private extern class FMOD_CHANNELORDER_Impl
 {
 }
 
-@:buildXml('<include name="${haxelib:hxfmod}/project/Build.xml" />')
-@:include('fmod_common.h')
-@:native('FMOD_OUTPUTTYPE')
+@:build(hxfmod.macros.LinkerMacro.build('fmod_common.h', 'FMOD_OUTPUTTYPE', false))
 private extern class FMOD_OUTPUTTYPE_Impl
 {
 }
 
-@:buildXml('<include name="${haxelib:hxfmod}/project/Build.xml" />')
-@:include('fmod_common.h')
-@:unreflective
-@:structAccess
-@:native('FMOD_CREATESOUNDEXINFO')
+@:build(hxfmod.macros.LinkerMacro.build('fmod_common.h', 'FMOD_CREATESOUNDEXINFO', true, true))
 extern class FMOD_CREATESOUNDEXINFO
 {
 	@:native('FMOD_CREATESOUNDEXINFO')
@@ -438,7 +419,7 @@ extern class FMOD_CREATESOUNDEXINFO
 	var channelorder:FMOD_CHANNELORDER;
 	// var initialsoundgroup:RawPointer<FMOD_SOUNDGROUP>;
 	var initialseekposition:cpp.UInt32;
-	var initialseekpostype:FMOD_TIMEUNIT;
+	var initialseekpostype:TimeUnit;
 	var ignoresetfilesystem:Int;
 	var audioqueuepolicy:cpp.UInt32;
 	var minmidigranularity:cpp.UInt32;

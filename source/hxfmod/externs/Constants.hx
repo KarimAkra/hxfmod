@@ -1,136 +1,134 @@
 package hxfmod.externs;
 
-@:buildXml('<include name="${haxelib:hxfmod}/project/Build.xml" />')
-@:include('fmod_common.h')
-@:unreflective
+@:build(hxfmod.macros.LinkerMacro.build('fmod_common.h'))
 extern class Constants
 {
 	// Base FMod information static variables
 	@:native('FMOD_VERSION')
-	static var FMOD_VERSION:cpp.UInt32;
+	static var VERSION:cpp.UInt32;
 
 	@:native('FMOD_BUILDNUMBER')
-	static var FMOD_BUILDNUMBER:cpp.UInt32;
+	static var BUILDNUMBER:cpp.UInt32;
 
 	// FMOD_INITFLAGS
 	@:native('FMOD_INIT_NORMAL')
-	static var INIT_NORMAL:FMOD_INITFLAGS;
+	static var INIT_NORMAL:InitFlags;
 
 	// FMOD_TIMEUNIT
 	@:native('FMOD_TIMEUNIT_MS')
-	static var FMOD_TIMEUNIT_MS:FMOD_TIMEUNIT;
+	static var TIMEUNIT_MS:TimeUnit;
 
 	@:native('FMOD_TIMEUNIT_PCM')
-	static var FMOD_TIMEUNIT_PCM:FMOD_TIMEUNIT;
+	static var TIMEUNIT_PCM:TimeUnit;
 
 	@:native('FMOD_TIMEUNIT_PCMBYTES')
-	static var FMOD_TIMEUNIT_PCMBYTES:FMOD_TIMEUNIT;
+	static var TIMEUNIT_PCMBYTES:TimeUnit;
 
 	@:native('FMOD_TIMEUNIT_RAWBYTES')
-	static var FMOD_TIMEUNIT_RAWBYTES:FMOD_TIMEUNIT;
+	static var TIMEUNIT_RAWBYTES:TimeUnit;
 
 	@:native('FMOD_TIMEUNIT_PCMFRACTION')
-	static var FMOD_TIMEUNIT_PCMFRACTION:FMOD_TIMEUNIT;
+	static var TIMEUNIT_PCMFRACTION:TimeUnit;
 
 	@:native('FMOD_TIMEUNIT_MODORDER')
-	static var FMOD_TIMEUNIT_MODORDER:FMOD_TIMEUNIT;
+	static var TIMEUNIT_MODORDER:TimeUnit;
 
 	@:native('FMOD_TIMEUNIT_MODROW')
-	static var FMOD_TIMEUNIT_MODROW:FMOD_TIMEUNIT;
+	static var TIMEUNIT_MODROW:TimeUnit;
 
 	@:native('FMOD_TIMEUNIT_MODPATTERN')
-	static var FMOD_TIMEUNIT_MODPATTERN:FMOD_TIMEUNIT;
+	static var TIMEUNIT_MODPATTERN:TimeUnit;
 
 	// FMOD_MODE
 	@:native('FMOD_DEFAULT')
-	static var FMOD_DEFAULT:FMOD_MODE;
+	static var DEFAULT:Mode;
 
 	@:native('FMOD_LOOP_OFF')
-	static var FMOD_LOOP_OFF:FMOD_MODE;
+	static var LOOP_OFF:Mode;
 
 	@:native('FMOD_LOOP_NORMAL')
-	static var FMOD_LOOP_NORMAL:FMOD_MODE;
+	static var LOOP_NORMAL:Mode;
 
 	@:native('FMOD_LOOP_BIDI')
-	static var FMOD_LOOP_BIDI:FMOD_MODE;
+	static var LOOP_BIDI:Mode;
 
 	@:native('FMOD_2D')
-	static var FMOD_2D:FMOD_MODE;
+	static var MODE_2D:Mode;
 
 	@:native('FMOD_3D')
-	static var FMOD_3D:FMOD_MODE;
+	static var MODE_3D:Mode;
 
 	@:native('FMOD_CREATESTREAM')
-	static var FMOD_CREATESTREAM:FMOD_MODE;
+	static var CREATESTREAM:Mode;
 
 	@:native('FMOD_CREATESAMPLE')
-	static var FMOD_CREATESAMPLE:FMOD_MODE;
+	static var CREATESAMPLE:Mode;
 
 	@:native('FMOD_CREATECOMPRESSEDSAMPLE')
-	static var FMOD_CREATECOMPRESSEDSAMPLE:FMOD_MODE;
+	static var CREATECOMPRESSEDSAMPLE:Mode;
 
 	@:native('FMOD_OPENUSER')
-	static var FMOD_OPENUSER:FMOD_MODE;
+	static var OPENUSER:Mode;
 
 	@:native('FMOD_OPENMEMORY')
-	static var FMOD_OPENMEMORY:FMOD_MODE;
+	static var OPENMEMORY:Mode;
 
 	@:native('FMOD_OPENMEMORY_POINT')
-	static var FMOD_OPENMEMORY_POINT:FMOD_MODE;
+	static var OPENMEMORY_POINT:Mode;
 
 	@:native('FMOD_OPENRAW')
-	static var FMOD_OPENRAW:FMOD_MODE;
+	static var OPENRAW:Mode;
 
 	@:native('FMOD_OPENONLY')
-	static var FMOD_OPENONLY:FMOD_MODE;
+	static var OPENONLY:Mode;
 
 	@:native('FMOD_ACCURATETIME')
-	static var FMOD_ACCURATETIME:FMOD_MODE;
+	static var ACCURATETIME:Mode;
 
 	@:native('FMOD_MPEGSEARCH')
-	static var FMOD_MPEGSEARCH:FMOD_MODE;
+	static var MPEGSEARCH:Mode;
 
 	@:native('FMOD_NONBLOCKING')
-	static var FMOD_NONBLOCKING:FMOD_MODE;
+	static var NONBLOCKING:Mode;
 
 	@:native('FMOD_UNIQUE')
-	static var FMOD_UNIQUE:FMOD_MODE;
+	static var UNIQUE:Mode;
 
 	@:native('FMOD_3D_HEADRELATIVE')
-	static var FMOD_3D_HEADRELATIVE:FMOD_MODE;
+	static var MODE_3D_HEADRELATIVE:Mode;
 
 	@:native('FMOD_3D_WORLDRELATIVE')
-	static var FMOD_3D_WORLDRELATIVE:FMOD_MODE;
+	static var MODE_3D_WORLDRELATIVE:Mode;
 
 	@:native('FMOD_3D_INVERSEROLLOFF')
-	static var FMOD_3D_INVERSEROLLOFF:FMOD_MODE;
+	static var MODE_3D_INVERSEROLLOFF:Mode;
 
 	@:native('FMOD_3D_LINEARROLLOFF')
-	static var FMOD_3D_LINEARROLLOFF:FMOD_MODE;
+	static var MODE_3D_LINEARROLLOFF:Mode;
 
 	@:native('FMOD_3D_LINEARSQUAREROLLOFF')
-	static var FMOD_3D_LINEARSQUAREROLLOFF:FMOD_MODE;
+	static var MODE_3D_LINEARSQUAREROLLOFF:Mode;
 
 	@:native('FMOD_3D_INVERSETAPEREDROLLOFF')
-	static var FMOD_3D_INVERSETAPEREDROLLOFF:FMOD_MODE;
+	static var MODE_3D_INVERSETAPEREDROLLOFF:Mode;
 
 	@:native('FMOD_3D_CUSTOMROLLOFF')
-	static var FMOD_3D_CUSTOMROLLOFF:FMOD_MODE;
+	static var MODE_3D_CUSTOMROLLOFF:Mode;
 
 	@:native('FMOD_3D_IGNOREGEOMETRY')
-	static var FMOD_3D_IGNOREGEOMETRY:FMOD_MODE;
+	static var MODE_3D_IGNOREGEOMETRY:Mode;
 
 	@:native('FMOD_IGNORETAGS')
-	static var FMOD_IGNORETAGS:FMOD_MODE;
+	static var IGNORETAGS:Mode;
 
 	@:native('FMOD_LOWMEM')
-	static var FMOD_LOWMEM:FMOD_MODE;
+	static var LOWMEM:Mode;
 
 	@:native('FMOD_VIRTUAL_PLAYFROMSTART')
-	static var FMOD_VIRTUAL_PLAYFROMSTART:FMOD_MODE;
+	static var VIRTUAL_PLAYFROMSTART:Mode;
 }
 
 // Just wanna keep this similar to how it is in FMod
-typedef FMOD_INITFLAGS = cpp.UInt32;
-typedef FMOD_TIMEUNIT = cpp.UInt32;
-typedef FMOD_MODE = cpp.UInt32;
+typedef InitFlags = cpp.UInt32;
+typedef TimeUnit = cpp.UInt32;
+typedef Mode = cpp.UInt32;

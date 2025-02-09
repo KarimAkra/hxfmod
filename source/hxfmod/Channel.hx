@@ -5,7 +5,7 @@ import cpp.RawPointer;
 import hxfmod.externs.Types;
 import hxfmod.util.LoopPoints;
 import hxfmod.externs.Constants;
-import hxfmod.externs.FMOD_RESULT;
+import hxfmod.externs.ResultCode;
 
 @:allow(hxfmod.System)
 class Channel
@@ -21,35 +21,27 @@ class Channel
 	public var paused(get, set):Bool;
 	public var volume(get, set):Float;
 
-	/*
-	 * Error: Channel.cpp
-	C:/haxelib/hxcpp/git/include\cpp/Variant.h(154): error C2440: '<function-style-cast>': cannot convert from 'const cpp::Variant' to 'RETURN_'
-    with
-    [
-        RETURN_=FMOD_RESULT
-    ]
-	*/
-	// TF DOES THIS MEAN!??!?! I'M NOT CASTING THIS OR RETURNING IT ANYWHERE?????
-	// IT JUST RANDOMLY STARTED HAPPENING AND THE ONLY SOLUTION I FOUND IS MAKING THE RESULT A INT SORRY
-
 	public var lastResultCode:Int = 0;
+
 	private var _channel:cpp.RawPointer<FMod_Channel> = untyped NULL;
 
-	public function new() {}
+	public function new()
+	{
+	}
 
-	public function setPositionAdvanced(position:Int, postype:FMOD_TIMEUNIT):Int
+	public function setPositionAdvanced(position:Int, postype:TimeUnit):Int
 	{
 		lastResultCode = _channel[0].setPosition(position, postype);
 
 		if (lastResultCode != FMOD_OK)
 		{
-			trace('[FMod Channel] Failed to set position with error code ${lastResultCode}');
+			trace('[FMod Channel] Failed to set position with error code ${ResultCode.fromInt(lastResultCode).toString()}');
 		}
 
 		return lastResultCode == FMOD_OK ? position : getPositionAdvanced(postype);
 	}
 
-	public function getPositionAdvanced(postype:FMOD_TIMEUNIT):Int
+	public function getPositionAdvanced(postype:TimeUnit):Int
 	{
 		var position:cpp.UInt32 = 0;
 		var rawPtr:RawPointer<cpp.UInt32> = RawPointer.addressOf(position);
@@ -57,19 +49,19 @@ class Channel
 
 		if (lastResultCode != FMOD_OK)
 		{
-			trace('[FMod Channel] Failed to get position with error code ${lastResultCode}');
+			trace('[FMod Channel] Failed to get position with error code ${ResultCode.fromInt(lastResultCode).toString()}');
 			position = 0;
 		}
 
 		return position;
 	}
 
-	public function setLoopPoints(loopstart:Int, loopstarttype:FMOD_TIMEUNIT, loopend:Int, loopendtype:FMOD_TIMEUNIT):FMOD_RESULT
+	public function setLoopPoints(loopstart:Int, loopstarttype:TimeUnit, loopend:Int, loopendtype:TimeUnit):ResultCode
 	{
 		return _channel[0].setLoopPoints(loopstart, loopstarttype, loopend, loopendtype);
 	}
 
-	public function getLoopPoints(loopstarttype:FMOD_TIMEUNIT, loopendtype:FMOD_TIMEUNIT):LoopPoints
+	public function getLoopPoints(loopstarttype:TimeUnit, loopendtype:TimeUnit):LoopPoints
 	{
 		var loopstart:cpp.UInt32 = 0;
 		var loopend:cpp.UInt32 = 0;
@@ -81,7 +73,7 @@ class Channel
 
 		if (lastResultCode != FMOD_OK)
 		{
-			trace('[FMod Channel] Failed to get loop points with error code ${lastResultCode}');
+			trace('[FMod Channel] Failed to get loop points with error code ${ResultCode.fromInt(lastResultCode).toString()}');
 
 			loopstart = 0;
 			loopend = 0;
@@ -97,7 +89,7 @@ class Channel
 
 		if (lastResultCode != FMOD_OK)
 		{
-			trace('[FMod Channel] Failed to set frequency with error code ${lastResultCode}');
+			trace('[FMod Channel] Failed to set frequency with error code ${ResultCode.fromInt(lastResultCode).toString()}');
 		}
 
 		return lastResultCode == FMOD_OK ? frequency : this.frequency;
@@ -112,7 +104,7 @@ class Channel
 
 		if (lastResultCode != FMOD_OK)
 		{
-			trace('[FMod Channel] Failed to get frequency with error code ${lastResultCode}');
+			trace('[FMod Channel] Failed to get frequency with error code ${ResultCode.fromInt(lastResultCode).toString()}');
 			frequency = -1;
 		}
 
@@ -126,7 +118,7 @@ class Channel
 
 		if (lastResultCode != FMOD_OK)
 		{
-			trace('[FMod Channel] Failed to set priority with error code ${lastResultCode}');
+			trace('[FMod Channel] Failed to set priority with error code ${ResultCode.fromInt(lastResultCode).toString()}');
 		}
 
 		return lastResultCode == FMOD_OK ? priority : this.priority;
@@ -141,7 +133,7 @@ class Channel
 
 		if (lastResultCode != FMOD_OK)
 		{
-			trace('[FMod Channel] Failed to get priority with error code ${lastResultCode}');
+			trace('[FMod Channel] Failed to get priority with error code ${ResultCode.fromInt(lastResultCode).toString()}');
 			priority = -1;
 		}
 
@@ -151,13 +143,13 @@ class Channel
 	@:noCompletion
 	private function set_position(position:Int):Int
 	{
-		return setPositionAdvanced(position, Constants.FMOD_TIMEUNIT_MS);
+		return setPositionAdvanced(position, Constants.TIMEUNIT_MS);
 	}
 
 	@:noCompletion
 	private function get_position():Int
 	{
-		return getPositionAdvanced(Constants.FMOD_TIMEUNIT_MS);
+		return getPositionAdvanced(Constants.TIMEUNIT_MS);
 	}
 
 	@:noCompletion
@@ -167,7 +159,7 @@ class Channel
 
 		if (lastResultCode != FMOD_OK)
 		{
-			trace('[FMod Channel] Failed to set loop count with error code ${lastResultCode}');
+			trace('[FMod Channel] Failed to set loop count with error code ${ResultCode.fromInt(lastResultCode).toString()}');
 		}
 
 		return lastResultCode == FMOD_OK ? loopcount : loopCount;
@@ -182,7 +174,7 @@ class Channel
 
 		if (lastResultCode != FMOD_OK)
 		{
-			trace('[FMod Channel] Failed to get loop count with error code ${lastResultCode}');
+			trace('[FMod Channel] Failed to get loop count with error code ${ResultCode.fromInt(lastResultCode).toString()}');
 			loopcount = 1;
 		}
 
@@ -199,7 +191,7 @@ class Channel
 
 		if (lastResultCode != FMOD_OK)
 		{
-			trace('[FMod Channel] Failed to get isVirtual with error code ${lastResultCode}');
+			trace('[FMod Channel] Failed to get isVirtual with error code ${ResultCode.fromInt(lastResultCode).toString()}');
 			virtual = false;
 		}
 
@@ -216,7 +208,7 @@ class Channel
 
 		if (lastResultCode != FMOD_OK)
 		{
-			trace('[FMod Channel] Failed to get current sound with error code ${lastResultCode}');
+			trace('[FMod Channel] Failed to get current sound with error code ${ResultCode.fromInt(lastResultCode).toString()}');
 			_sound = untyped NULL;
 			return null;
 		}
@@ -233,7 +225,7 @@ class Channel
 
 		if (lastResultCode != FMOD_OK)
 		{
-			trace('[FMod Channel] Failed to get index with error code ${lastResultCode}');
+			trace('[FMod Channel] Failed to get index with error code ${ResultCode.fromInt(lastResultCode).toString()}');
 			index = 1;
 		}
 
@@ -247,7 +239,7 @@ class Channel
 
 		if (lastResultCode != FMOD_OK)
 		{
-			trace('[FMod Channel] Failed to set loop count with error code ${lastResultCode}');
+			trace('[FMod Channel] Failed to set loop count with error code ${ResultCode.fromInt(lastResultCode).toString()}');
 		}
 
 		return lastResultCode == FMOD_OK ? pause : paused;
@@ -263,7 +255,7 @@ class Channel
 
 		if (lastResultCode != FMOD_OK)
 		{
-			trace('[FMod Channel] Failed to get paused with error code ${lastResultCode}');
+			trace('[FMod Channel] Failed to get paused with error code ${ResultCode.fromInt(lastResultCode).toString()}');
 			paused = false;
 		}
 
@@ -277,7 +269,7 @@ class Channel
 
 		if (lastResultCode != FMOD_OK)
 		{
-			trace('[FMod Channel] Failed to set volume with error code ${lastResultCode}');
+			trace('[FMod Channel] Failed to set volume with error code ${ResultCode.fromInt(lastResultCode).toString()}');
 		}
 
 		return lastResultCode == FMOD_OK ? volume : this.volume;
@@ -292,7 +284,7 @@ class Channel
 
 		if (lastResultCode != FMOD_OK)
 		{
-			trace('[FMod Channel] Failed to get volume with error code ${lastResultCode}');
+			trace('[FMod Channel] Failed to get volume with error code ${ResultCode.fromInt(lastResultCode).toString()}');
 			volume = -1;
 		}
 

@@ -3,12 +3,11 @@ package hxfmod;
 import cpp.RawConstPointer;
 import cpp.Pointer;
 import cpp.RawPointer;
-import cpp.CastCharStar;
 import hxfmod.externs.Types;
 import hxfmod.util.LoopPoints;
 import hxfmod.util.SoundFormat;
 import hxfmod.externs.Constants;
-import hxfmod.externs.FMOD_RESULT;
+import hxfmod.externs.ResultCode;
 
 @:allow(hxfmod.System)
 @:allow(hxfmod.Channel)
@@ -18,24 +17,28 @@ class Sound
 	public var format(get, null):SoundFormat;
 	public var name(get, null):String;
 
+	public var lastResultCode:Int = 0;
+
 	private var _sound:cpp.RawPointer<FMod_Sound> = untyped NULL;
 
-	private function new() {}
-
-	public function release():FMOD_RESULT
+	private function new()
 	{
-		return _sound[0].release();
 	}
 
-	public function getLengthAdvanced(lengthtype:FMOD_TIMEUNIT):Float
+	public function release():Void
+	{
+		lastResultCode = _sound[0].release();
+	}
+
+	public function getLengthAdvanced(lengthtype:TimeUnit):Float
 	{
 		var length:cpp.UInt32 = 0;
 		var rawPtr:RawPointer<cpp.UInt32> = Pointer.addressOf(length).raw;
-		var result = _sound[0].getLength(rawPtr, lengthtype);
+		lastResultCode = _sound[0].getLength(rawPtr, lengthtype);
 
-		if (result != FMOD_OK)
+		if (lastResultCode != FMOD_OK)
 		{
-			trace('[FMod Sound] Failed to get sound length with error code ${result.toInt()}');
+			trace('[FMod Sound] Failed to get sound length with error code ${ResultCode.fromInt(lastResultCode).toString()}');
 		}
 
 		return length;
@@ -48,11 +51,11 @@ class Sound
 		var name:cpp.Char = untyped NULL;
 		var raw:RawPointer<cpp.Char> = RawPointer.addressOf(name);
 
-		var result = _sound[0].getName(raw, namelen);
+		lastResultCode = _sound[0].getName(raw, namelen);
 
-		if (result != FMOD_OK)
+		if (lastResultCode != FMOD_OK)
 		{
-			trace('[FMod Sound] Failed to get sound name with error code ${result.toInt()}');
+			trace('[FMod Sound] Failed to get sound name with error code ${ResultCode.fromInt(lastResultCode).toString()}');
 			name = untyped NULL;
 		}
 
@@ -60,17 +63,17 @@ class Sound
 		return cpp.NativeString.fromPointer(constPtr);
 	}
 
-	public function setMode(mode:FMOD_MODE):FMOD_RESULT
+	public function setMode(mode:Mode):Void
 	{
-		return _sound[0].setMode(mode);
+		lastResultCode = _sound[0].setMode(mode);
 	}
 
-	public function setLoopPoints(loopstart:Int, loopstarttype:FMOD_TIMEUNIT, loopend:Int, loopendtype:FMOD_TIMEUNIT):FMOD_RESULT
+	public function setLoopPoints(loopstart:Int, loopstarttype:TimeUnit, loopend:Int, loopendtype:TimeUnit):Void
 	{
-		return _sound[0].setLoopPoints(loopstart, loopstarttype, loopend, loopendtype);
+		lastResultCode = _sound[0].setLoopPoints(loopstart, loopstarttype, loopend, loopendtype);
 	}
 
-	public function getLoopPoints(loopstarttype:FMOD_TIMEUNIT, loopendtype:FMOD_TIMEUNIT):LoopPoints
+	public function getLoopPoints(loopstarttype:TimeUnit, loopendtype:TimeUnit):LoopPoints
 	{
 		var loopstart:cpp.UInt32 = 0;
 		var loopend:cpp.UInt32 = 0;
@@ -78,11 +81,11 @@ class Sound
 		var rawPtr1:RawPointer<cpp.UInt32> = Pointer.addressOf(loopstart).raw;
 		var rawPtr2:RawPointer<cpp.UInt32> = Pointer.addressOf(loopend).raw;
 
-		var result = _sound[0].getLoopPoints(rawPtr1, loopstarttype, rawPtr2, loopendtype);
+		lastResultCode = _sound[0].getLoopPoints(rawPtr1, loopstarttype, rawPtr2, loopendtype);
 
-		if (result != FMOD_OK)
+		if (lastResultCode != FMOD_OK)
 		{
-			trace('[FMod Sound] Failed to get loop points with error code ${result}');
+			trace('[FMod Sound] Failed to get loop points with error code ${ResultCode.fromInt(lastResultCode).toString()}');
 
 			loopstart = 0;
 			loopend = 0;
@@ -101,7 +104,7 @@ class Sound
 	@:noCompletion
 	private function get_length():Float
 	{
-		return getLengthAdvanced(Constants.FMOD_TIMEUNIT_MS);
+		return getLengthAdvanced(Constants.TIMEUNIT_MS);
 	}
 
 	@:noCompletion
@@ -117,11 +120,11 @@ class Sound
 		var rawPtr3:RawPointer<Int> = Pointer.addressOf(channels).raw;
 		var rawPtr4:RawPointer<Int> = Pointer.addressOf(bits).raw;
 
-		var result = _sound[0].getFormat(rawPtr1, rawPtr2, rawPtr3, rawPtr4);
+		lastResultCode = _sound[0].getFormat(rawPtr1, rawPtr2, rawPtr3, rawPtr4);
 
-		if (result != FMOD_OK)
+		if (lastResultCode != FMOD_OK)
 		{
-			trace('[FMod Sound] Failed to get sound format with error code ${result}');
+			trace('[FMod Sound] Failed to get sound format with error code ${ResultCode.fromInt(lastResultCode).toString()}');
 
 			type = FMOD_SOUND_TYPE_UNKNOWN;
 			format = FMOD_SOUND_FORMAT_NONE;
@@ -129,7 +132,12 @@ class Sound
 			bits = -1;
 		}
 
-		return {type: type, format: format, channels: channels, bits: bits};
+		return {
+			type: type,
+			format: format,
+			channels: channels,
+			bits: bits
+		};
 	}
 
 	@:noCompletion

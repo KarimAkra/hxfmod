@@ -98,7 +98,6 @@ class LibMacro
 				var path = Path.join([exportDir, bin, file]);
 				FileSystem.createDirectory(Path.directory(path));
 				File.copy(arch + file, path);
-				trace('copied ${file} to ${Sys.getCwd() + path}');
 				#end
 			}
 		}
@@ -106,6 +105,7 @@ class LibMacro
 	}
 	#end
 
+	@:allow(hxfmod.macros.LinkerMacro)
 	private static function getHXFmodDir():String
 	{
 		var proc = new sys.io.Process('haxelib libpath hxfmod');

@@ -1,10 +1,13 @@
 apply plugin: 'com.android.library'
 
+repositories {
+	mavenCentral()
+	google()
+}
+
 android {
-    namespace 'org.haxe.extension.fmod'
     compileSdkVersion Integer.parseInt(project.ANDROID_BUILD_SDK_VERSION)
     buildToolsVersion project.ANDROID_BUILD_TOOLS_VERSION
-    android.buildFeatures.buildConfig true
 }
 
 def getCwdPath() {

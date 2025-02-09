@@ -1,6 +1,6 @@
 package hxfmod.externs;
 
-extern enum abstract FMOD_RESULT(FMOD_RESULT_Impl)
+extern enum abstract ResultCode(FMOD_RESULT_Impl)
 {
 	@:native('FMOD_OK')
 	var FMOD_OK;
@@ -252,17 +252,18 @@ extern enum abstract FMOD_RESULT(FMOD_RESULT_Impl)
 	var FMOD_RESULT_FORCEINT;
 
 	@:from
-	static public inline function fromInt(i:Int):FMOD_RESULT
+	static public inline function fromInt(i:Int):ResultCode
 		return cast i;
 
 	@:to
 	extern public inline function toInt():Int
 		return untyped this;
+
+	public inline function toString():String
+		return Types.FMod_Errors.ErrorString(untyped this);
 }
 
-@:buildXml('<include name="${haxelib:hxfmod}/project/Build.xml" />')
-@:include('fmod_common.h')
-@:native('FMOD_RESULT')
+@:build(hxfmod.macros.LinkerMacro.build('fmod_common.h', 'FMOD_RESULT', false))
 private extern class FMOD_RESULT_Impl
 {
 }
