@@ -14,10 +14,22 @@ jobs:
             artifactName: windowsBuild
             artifactPath: export\release\windows\bin\*
             projectName: play_sound
+          - name: Windows ARM64
+            os: windows-2022
+            buildArgs: windows
+            artifactName: windowsArm64Build
+            artifactPath: export\release\windows\bin\*
+            projectName: play_sound
           - name: Linux
             os: ubuntu-22.04
             buildArgs: linux
             artifactName: linuxBuild
+            artifactPath: export/release/linux/bin/*
+            projectName: play_sound
+          - name: Linux ARM64
+            os: ubuntu-22.04-arm
+            buildArgs: linux
+            artifactName: linuxArm64Build
             artifactPath: export/release/linux/bin/*
             projectName: play_sound
           - name: macOS x86_64
